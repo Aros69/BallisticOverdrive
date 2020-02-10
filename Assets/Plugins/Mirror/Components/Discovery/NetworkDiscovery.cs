@@ -31,6 +31,11 @@ namespace Mirror.Discovery
             // Or just let the user assign it in the inspector
             if (transport == null)
                 transport = Transport.activeTransport;
+
+            if (NetworkManager.isHeadless)
+            {
+                AdvertiseServer();
+            }
         }
 
         /// <summary>
