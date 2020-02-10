@@ -26,7 +26,6 @@ public class NetworkCapsuleSpawner : NetworkBehaviour
     void Update()
     {
         if(isLocalPlayer && Input.GetButtonDown("Fire1")){
-            //Debug.Log("Lol");
             doTheAction();
         }
     }
