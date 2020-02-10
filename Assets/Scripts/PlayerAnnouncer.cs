@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 using Mirror;
 
-[RequireComponent(typeof(PlayerStats))]
+[RequireComponent(typeof(HealthManager))]
+[RequireComponent(typeof(AmmoManager))]
 public class PlayerAnnouncer : NetworkBehaviour
 {
 	public static event Action<NetworkIdentity> OnPlayerStatsUpdated;

@@ -12,11 +12,12 @@ public class AmmoManager : MonoBehaviour
     [SerializeField] private float m_reloadTime = 1;
     [SerializeField] private float m_delay = 0.5f;
     private float m_ammo = 3;
-
+    
     //Automatic m_reloading
     private float m_reloading = 0;
     private float m_startedReload = 0;
-
+    
+    public float Ammo {get => m_ammo;}
     // return false if unable to shoot
     public bool Shoot()
     {

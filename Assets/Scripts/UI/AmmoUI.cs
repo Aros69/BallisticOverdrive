@@ -6,8 +6,7 @@ using Mirror;
 
 public class AmmoUI : MonoBehaviour
 {
-	PlayerStats m_playerStats;
-	int ammo;
+	AmmoManager m_ammoManager;
 
 	private void Awake()
 	{
@@ -18,9 +17,9 @@ public class AmmoUI : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (m_playerStats != null)
+		if (m_ammoManager != null)
 		{
-			GetComponent<Text>().text = m_playerStats.Ammo.ToString();
+			GetComponent<Text>().text = m_ammoManager.Ammo.ToString();
 		}
 	}
 
@@ -33,7 +32,7 @@ public class AmmoUI : MonoBehaviour
 	{
 		if (localPlayer != null)
 		{
-			m_playerStats = localPlayer.GetComponent<PlayerStats>();
+			m_ammoManager = localPlayer.GetComponent<AmmoManager>();
 		}
 
 		this.enabled = (localPlayer != null);
