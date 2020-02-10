@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    public float maxHP = 5;
-    private float HP = 5;
-
+    [SerializeField] private int m_maxHP = 5;
+    private int m_HP = 5;
+    public int HP {get => m_HP;}
     public void setMaxHP(int m)
     {
-        maxHP = m;
+        m_maxHP = m;
     }
     public bool takeDamage()
     {
-        HP--;
+        m_HP--;
         return isDead();
     }
 
     public bool isDead()
     {
-        return HP <= 0;
+        return m_HP <= 0;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            takeDamage();
     }
 }

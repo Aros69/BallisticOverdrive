@@ -6,8 +6,7 @@ using Mirror;
 
 public class HealthUI : MonoBehaviour
 {
-	PlayerStats m_playerStats;
-	int m_health;
+	HealthManager m_healthManager;
 
 	private void Awake()
 	{
@@ -18,9 +17,9 @@ public class HealthUI : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		if (m_playerStats != null)
+		if (m_healthManager != null)
 		{
-			GetComponent<Text>().text = m_playerStats.Health.ToString();
+			GetComponent<Text>().text = m_healthManager.HP.ToString();
 		}
 	}
 
@@ -33,7 +32,7 @@ public class HealthUI : MonoBehaviour
 	{
 		if (localPlayer != null)
 		{
-			m_playerStats = localPlayer.GetComponent<PlayerStats>();
+			m_healthManager = localPlayer.GetComponent<HealthManager>();
 		}
 
 		this.enabled = (localPlayer != null);

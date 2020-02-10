@@ -89,6 +89,7 @@ public class PlayerController : NetworkBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space) && m_grounded)
         {
+            GetComponent<AudioSource>().Play();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
         }
     }
