@@ -6,7 +6,7 @@ using Mirror;
 public class NetworkCapsuleSpawner : NetworkBehaviour
 {
     [SerializeField]
-    private GameObject toSpawnObject;
+    private GameObject m_toSpawnObject;
     // Start is called before the first frame update
     void Start() {
         
