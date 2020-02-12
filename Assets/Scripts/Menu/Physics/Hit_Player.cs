@@ -8,8 +8,9 @@ public class Hit_Player : Hit
     {
         Debug.Log("Ouch ! ");
         Vector3 f = o.GetComponent<Projectile>().getDirection() * o.GetComponent<Rigidbody>().mass;
-        gameObject.GetComponent<Rigidbody>().AddForce(f);
-        if(gameObject.GetComponent<HealthManager>().takeDamage())
+        GetComponent<Rigidbody>().AddForce(f);
+        GetComponent<PlayerSounds>().PlayOuchSound();
+        if(GetComponent<HealthManager>().takeDamage())
             Destroy(gameObject);
     }
 }

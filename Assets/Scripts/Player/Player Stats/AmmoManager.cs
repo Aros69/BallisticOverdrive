@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AmmoManager : MonoBehaviour
+using Mirror;
+public class AmmoManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject m_ammoHUD;
-    [SerializeField] private GameObject m_projectile;
-    [SerializeField] private GameObject m_shootSpawn;
+    [SerializeField] private GameObject m_ammoHUD = null;
+    [SerializeField] private GameObject m_projectile = null;
+    [SerializeField] private GameObject m_shootSpawn = null;
     [SerializeField] private bool m_debug = false;
     [SerializeField] private float m_maxCapacity = 3;
     [SerializeField] private float m_reloadTime = 1;
@@ -16,7 +16,6 @@ public class AmmoManager : MonoBehaviour
     //Automatic m_reloading
     private float m_reloading = 0;
     private float m_startedReload = 0;
-    
     public float Ammo {get => m_ammo;}
     // return false if unable to shoot
     public bool Shoot()
@@ -25,7 +24,9 @@ public class AmmoManager : MonoBehaviour
             return false;
         else
         {
-            Instantiate(m_projectile, m_shootSpawn.transform.position, m_shootSpawn.transform.rotation);
+            GameObject bullet =  Instantiate(m_projectile, m_shootSpawn.transform.position, m_shootSpawn.transform.rotation);
+            NetworkServer.Spawn(bullet, base.connectionToClient);
+            bullet.GetComponent<Projectile>().SetOwner(gameObject);
             m_ammo--;
         }
         return true;
@@ -42,10 +43,13 @@ public class AmmoManager : MonoBehaviour
 
     void Update()
     {
-        UpdateAmmo();
-        if(Input.GetButtonDown("Fire1"))
+        if(isLocalPlayer)
         {
-            Shoot();
+            UpdateAmmo();
+            if(Input.GetButtonDown("Fire1"))
+            {
+                Shoot();
+            }
         }
     }
     public void init()

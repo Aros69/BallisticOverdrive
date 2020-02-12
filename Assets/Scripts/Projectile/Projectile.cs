@@ -5,10 +5,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Rigidbody m_rigidBody;
+    private GameObject m_owner;
+    
+    [SerializeField] private float m_speed = 20.0f;
 
-    [SerializeField]
-    private float m_speed = 20.0f;
-
+    [SerializeField] GameObject m_explosion = null;
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
@@ -32,26 +33,29 @@ public class Projectile : MonoBehaviour
         m_rigidBody.MovePosition(m_rigidBody.position + getDirection() * m_speed * Time.fixedDeltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void SetOwner(GameObject o)
     {
-        // Target Code : To delete ?
-        /*if(other.tag != "Player")
+        m_owner = o;
+    }
+    
+    void Explode(Vector3 explosionPoint)
+    {
+        Instantiate(m_explosion, explosionPoint, transform.rotation);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject != m_owner) // Only collide with others
         {
-            Target target = other.GetComponent<Target>();
-            if(target != null)
+            if(col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
             {
-                Debug.Log("Hit target");
-                target.Hit();
+                
+                if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
+                    col.GetComponent<Hit>().hit(gameObject);
             }
-            GetComponent<MeshRenderer>().enabled = false;
-            Destroy(gameObject, 0.5f);
-            Destroy(this);
-        }
-        else */
-        if(other.gameObject.layer == LayerMask.NameToLayer("Hitable"))
-        {
-            if(!other.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
-                other.GetComponent<Hit>().hit(gameObject);
+
+            Explode(transform.position);
         }
     }
 }
