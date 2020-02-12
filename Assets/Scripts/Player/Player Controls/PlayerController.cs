@@ -54,11 +54,15 @@ public class PlayerController : NetworkBehaviour
     [SerializeField]
     private float m_bonusGravity = 2.0f;
 
-    // Use this for initialization
-    public override void OnStartLocalPlayer()
+	private void Start()
+	{
+        m_rigidBody = GetComponent<Rigidbody>();
+	}
+
+	// Use this for initialization
+	public override void OnStartLocalPlayer()
     {
         m_Camera.gameObject.SetActive(true);
-        m_rigidBody = GetComponent<Rigidbody>();
         m_velocity = new Vector3(0.0f, 0.0f, 0.0f);
         Cursor.visible = false;
         m_height = transform.localScale.y;
@@ -102,8 +106,14 @@ public class PlayerController : NetworkBehaviour
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
-        }
-    }
+			CmdTest();
+
+			GameManager.Instance.AddPlayer(gameObject);
+			Debug.Log("blue team number " + GameManager.Instance.getTeamNB(Team.Blue));
+			Debug.Log("red team number " + GameManager.Instance.getTeamNB(Team.Red));
+
+		}
+	}
 
     void Crouch()
     {
@@ -146,4 +156,10 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+
+	[Command]
+	private void CmdTest()
+	{
+		Debug.Log("server: Test");
+	}
 }
