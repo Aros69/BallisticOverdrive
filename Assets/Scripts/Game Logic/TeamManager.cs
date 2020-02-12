@@ -61,7 +61,7 @@ public class TeamManager : MonoBehaviour
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
-    }
 
-	//GameManager.Instance.AddPlayer(gameObject);
+		//GameManager.Instance.AddPlayer(gameObject);
+	}
 }

@@ -44,6 +44,7 @@ public class GameManager : NetworkBehaviour
 		//	GameManager.Instance.AddPlayer(Team.Red);
 
 		//}
+		Debug.Log("update GameManager");
 	}
 
 
