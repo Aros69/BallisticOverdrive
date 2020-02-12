@@ -18,7 +18,7 @@ public class NetworkCapsuleSpawner : NetworkBehaviour
 
     [Command]
     private void CmdSpawnCapsule(){
-        GameObject projectile = Instantiate(toSpawnObject, new Vector3(), Quaternion.identity);
+        GameObject projectile = Instantiate(m_toSpawnObject, new Vector3(), Quaternion.identity);
         NetworkServer.Spawn(projectile, base.connectionToClient);
     }
 

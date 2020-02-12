@@ -21,13 +21,13 @@ public class GodMode : NetworkBehaviour
 
     private void addFakePlayer(){
         //return Physics.Raycast(transform.position, -transform.up, m_height+0.1f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore);
-        GameObject obj = Instantiate(m_playersPrefab, new Vector3(), Quaternion.identity);
-        CmdSpawnObject(obj);
+        //GameObject obj = Instantiate(m_playersPrefab, new Vector3(), Quaternion.identity);
+        //CmdSpawnObject(obj);
     }
 
     [Command]
     private void CmdSpawnObject(GameObject obj){
-        NetworkServer.Spawn(projectile, base.connectionToClient);
+        //NetworkServer.Spawn(projectile, base.connectionToClient);
     }
 
     // Update is called once per frame
