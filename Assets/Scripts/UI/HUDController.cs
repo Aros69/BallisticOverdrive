@@ -41,8 +41,11 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject redTeamWinsText;
     [SerializeField] private GameObject spectatingText;
 
+    [Header("EscapeMenu")]
+    [SerializeField] private GameObject escapeMenu;
 
     private HUDMode mode;
+    private bool showMenu = false;
 
     private GameObject[] healthBars;
     private GameObject[] ammoBars;
@@ -54,6 +57,16 @@ public class HUDController : MonoBehaviour
     {
         instance = this;
         mode = HUDMode.none;
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            if(showMenu){
+                HideMenu();
+            } else {
+                ShowMenu();
+            }
+        }
     }
 
     public void SetPlayerColor(Color color)
@@ -155,6 +168,26 @@ public class HUDController : MonoBehaviour
         {
             healthBars[i].SetActive(false);
         }
+    }
+
+    public void ShowMenu(){
+        showMenu = true;
+        escapeMenu.SetActive(true);
+        Cursor.visible = true;
+    }
+
+    public void HideMenu(){
+        showMenu = false;
+        escapeMenu.SetActive(false);
+        Cursor.visible = false;
+    }
+
+    public void LeaveGame(){
+        ODNetworkManager.singleton.StopClient();
+    }
+
+    public void Quit(){
+        Application.Quit();
     }
 
     public void SetMode(HUDMode newMode)

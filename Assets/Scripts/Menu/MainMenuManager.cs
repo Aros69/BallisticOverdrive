@@ -11,4 +11,8 @@ public class MainMenuManager : MonoBehaviour
         ODNetworkManager.singleton.networkAddress = serverAddressInputField.text;
         ODNetworkManager.singleton.StartClient();
     }
+
+    public void Quit(){
+        Application.Quit();
+    }
 }
