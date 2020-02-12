@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Team {Red, Blue, Black};
+public enum Team {Red, Blue, Black, Nb};
 
 public class TeamManager : MonoBehaviour
 {
@@ -61,6 +61,7 @@ public class TeamManager : MonoBehaviour
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
-    }
 
+		//GameManager.Instance.AddPlayer(gameObject);
+	}
 }

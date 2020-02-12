@@ -18,18 +18,24 @@ public class AmmoManager : NetworkBehaviour
     private float m_startedReload = 0;
     public float Ammo {get => m_ammo;}
     // return false if unable to shoot
+
     public bool Shoot()
     {
         if(m_ammo == 0)
             return false;
         else
         {
-            GameObject bullet =  Instantiate(m_projectile, m_shootSpawn.transform.position, m_shootSpawn.transform.rotation);
-            NetworkServer.Spawn(bullet, base.connectionToClient);
-            bullet.GetComponent<Projectile>().SetOwner(gameObject);
+            CmdShoot();
             m_ammo--;
         }
         return true;
+    }
+
+    [Command]
+    public void CmdShoot(){
+        GameObject bullet =  Instantiate(m_projectile, m_shootSpawn.transform.position, m_shootSpawn.transform.rotation);
+        NetworkServer.Spawn(bullet, base.connectionToClient);
+        bullet.GetComponent<Projectile>().SetOwner(gameObject);
     }
 
     // Start is called before the first frame update
