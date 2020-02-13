@@ -21,9 +21,7 @@ public class ODNetworkDiscoveryUIManager : MonoBehaviour
         networkDiscovery = ODNetworkManager.singleton.gameObject.GetComponent<NetworkDiscovery>();
         networkDiscovery.OnServerFound.AddListener(OnDiscoveredServer);
         elementHeight = ((RectTransform)template.transform).sizeDelta.y;
-    }
-
-    public void Refresh(){
+        
         discoveredServers.Clear();
         networkDiscovery.StartDiscovery();
     }
