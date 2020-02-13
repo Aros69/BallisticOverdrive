@@ -74,8 +74,6 @@ public class GodMode : NetworkBehaviour
                     aimHelper = gameObject.AddComponent<LineRenderer>();
                     aimHelper.startWidth = 0.1f;
                     aimHelper.endWidth = 0.1f;
-                    aimHelper.startColor = Color.red;
-                    aimHelper.endColor = Color.red;
                 }
                 else
                 {

@@ -27,13 +27,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_B6992368:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0d018eabc1f8096429c769487267609b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_46D12EF: 3
     - Vector1_C44561E9: 25
     - Vector1_D6D233B8: 0
+    - _DisolveValue: 1
     m_Colors:
     - Color_A1CFDF0C: {r: 8, g: 8, b: 8, a: 1}
     - Vector2_9A6F479A: {r: -0.7, g: 0, b: 0, a: 0}
