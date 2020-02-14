@@ -57,6 +57,10 @@ public class PlayerController : NetworkBehaviour
 	private void Start()
 	{
         m_rigidBody = GetComponent<Rigidbody>();
+        if(!isLocalPlayer)
+        {
+            m_rigidBody.isKinematic = true;
+        }
 	}
 
 	// Use this for initialization
@@ -129,6 +133,7 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.position = m_standingCameraPosition.position;
         }
     }
+
     public void Update()
     {
         if(isLocalPlayer)
