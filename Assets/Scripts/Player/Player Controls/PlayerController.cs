@@ -92,8 +92,7 @@ public class PlayerController : NetworkBehaviour
         Vector3 kinecticForce = (m_moveHorizontal + m_moveVertical)* m_speed;
         if(!m_grounded)
             kinecticForce *= m_airControl;
-        m_velocity += kinecticForce;
-        // if (m_velocity.magnitude > 1.0f) m_velocity = m_velocity.normalized;
+        m_velocity += kinecticForce * Time.fixedDeltaTime;
 
         //Compute camera rotation
         m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
@@ -134,7 +133,7 @@ public class PlayerController : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
-            ComputeMovements();
+            // ComputeMovements();
             Jump();
             Crouch();
         }
@@ -144,13 +143,14 @@ public class PlayerController : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
+            ComputeMovements();
             m_rigidBody.AddForce(new Vector3(0, - m_bonusGravity, 0), ForceMode.Force);
             if(m_grounded)
                 m_velocity *= 1.0f/m_groundDrag;
             else
                 m_velocity *= 1.0f/m_airDrag;
             
-            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity * Time.fixedDeltaTime);
+            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
             m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
