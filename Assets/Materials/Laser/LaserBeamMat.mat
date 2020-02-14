@@ -38,4 +38,4 @@ Material:
     m_Colors:
     - Color_A1CFDF0C: {r: 8, g: 8, b: 8, a: 1}
     - Vector2_9A6F479A: {r: -0.7, g: 0, b: 0, a: 0}
-    - Vector2_D58C791B: {r: -0.5, g: 0, b: 0, a: 0}
+    - Vector2_D58C791B: {r: -1, g: 0, b: 0, a: 0}

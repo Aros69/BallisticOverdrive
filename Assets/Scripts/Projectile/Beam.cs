@@ -18,17 +18,21 @@ public class Beam : NetworkBehaviour
     private float timer;
 
     private LineRenderer beamLine;
+    private Transform shootSpawn;
 
 
-    void playSound(){
+    void playSound()
+    {
         GetComponent<AudioSource>().Play(0);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        playSound();
         beamLine = GetComponent<LineRenderer>();
+        //m_playerCamera = transform.parent.transform.GetChild(0).gameObject.GetComponent<Camera>();
+        Debug.Log(transform.parent.transform.GetChild(0).gameObject.name);
+        playSound();
         timer = 0;
     }
 
@@ -37,24 +41,32 @@ public class Beam : NetworkBehaviour
         // Launch a hit scan from the middle of the viewport in front of him. 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
-        bool niceShot = Physics.Raycast(transform.position, ray.direction, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore);
+        int layerMask = 1 << 9; // Ground layer
+        layerMask += 1 << 10; // Hitable layer
+
+        bool niceShot = Physics.Raycast(transform.position, ray.direction, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore);
+        float distanceHit;
+        //beamLine.SetPosition(0, )
         // If the hitscan touch an object, call the hit function of this object
         // and define the length of the laserbeam based on the distance of the object
         if (niceShot)
         {
-
+            distanceHit = hit.distance;
         }
         // Else use a base distance (100 or less... I don't know)
         else
         {
-
+            distanceHit = 100f;
         }
         timer = 0;
-    // Show for a certain time (less than a sec... 0,5s maybe) the shot base on
-    // the distance and the start shot point
-    // How to disolve a material
-    //https://answers.unity.com/questions/1599068/triggering-timed-dissolve-shader-in-shader-graph-v.html
+        // Show for a certain time (less than a sec... 0,5s maybe) the shot base on
+        // the distance and the start shot point
+        // How to disolve a material
+        //https://answers.unity.com/questions/1599068/triggering-timed-dissolve-shader-in-shader-graph-v.html
     }
+
+    // TODO: resize the beamLine in fonction of the time
+
 
     // Update is called once per frame
     void Update()
@@ -69,7 +81,6 @@ public class Beam : NetworkBehaviour
             {
                 timer = beamLife;
             }
-            Debug.Log(timer + " " + beamLife);
             beamLine.material.SetFloat("_DisolveValue", 1f - timer / beamLife);
         }
     }
