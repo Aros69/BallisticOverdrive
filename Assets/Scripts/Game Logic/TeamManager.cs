@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public enum Team {Red, Blue, Black, Nb};
-
-public class TeamManager : MonoBehaviour
+// Network behaviour because it need GameManager to be launch
+public class TeamManager: NetworkBehaviour
 {
-    [SerializeField]
+	[SerializeField]
     private Team m_team;
     private bool m_isProjectile = false;
     static bool m_redTeamFull = false; 
@@ -46,6 +47,7 @@ public class TeamManager : MonoBehaviour
 
     /// <summary>
     /// Auto assign a team to a **PLAYER** object. for now the first player is always Red and the rest are blue
+	/// ps: If the function is no more determinist, call Bao
     /// </summary>
     public void autoAssignTeam()
     {
@@ -61,7 +63,6 @@ public class TeamManager : MonoBehaviour
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
-
-		//GameManager.Instance.AddPlayer(gameObject);
+		
 	}
 }

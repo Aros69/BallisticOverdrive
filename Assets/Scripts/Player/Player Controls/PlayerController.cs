@@ -4,8 +4,8 @@ using UnityEngine;
 using Mirror;
 public class PlayerController : NetworkBehaviour
 {
-    // Input store values
-    private float m_MovX;
+	// Input store values
+	private float m_MovX;
     private float m_MovY;
     private float m_yRot;
     private float m_xRot;
@@ -58,6 +58,7 @@ public class PlayerController : NetworkBehaviour
 	{
         m_rigidBody = GetComponent<Rigidbody>();
 	}
+	
 
 	// Use this for initialization
 	public override void OnStartLocalPlayer()
@@ -68,9 +69,10 @@ public class PlayerController : NetworkBehaviour
         m_height = transform.localScale.y;
         m_width = transform.localScale.x;
         m_collider = GetComponent<CapsuleCollider>();
-    }
+		//CmdSpawnGameManager();
+	}
 
-    private bool isGrounded()
+	private bool isGrounded()
     {
         return Physics.Raycast(transform.position, -transform.up, m_height+0.1f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore);
     }
@@ -106,12 +108,19 @@ public class PlayerController : NetworkBehaviour
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
-			CmdTest();
 
-			GameManager.Instance.AddPlayer(gameObject);
-			Debug.Log("blue team number " + GameManager.Instance.getTeamNB(Team.Blue));
-			Debug.Log("red team number " + GameManager.Instance.getTeamNB(Team.Red));
+			if (GameManager.Instance != null)
+			{
+				Debug.Log("game manager not null");
 
+				GetComponent<HealthManager>().takeDamage();
+
+			} else
+			{
+				Debug.Log("Game manager null!!");
+			}
+
+			CmdTesting();
 		}
 	}
 
@@ -155,11 +164,28 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
     }
-
+	public void BlockMovement()
+	{
+		Debug.Log("playmouvement block");
+	}
+	public void Teleport(Vector3 v)
+	{
+		Debug.Log("teleport player");
+	}
 
 	[Command]
-	private void CmdTest()
+	public void CmdTesting()
 	{
-		Debug.Log("server: Test");
+		Debug.Log("Server ? " + isServer);
+		if (isServer)
+		{
+			GameObject.Find("CmdTestObject").GetComponent<CmdTest>().SrvCallServer();
+		}
+	}
+
+	[ClientRpc]
+	public void RpcCall()
+	{
+		Debug.Log("server? " + isServer);
 	}
 }

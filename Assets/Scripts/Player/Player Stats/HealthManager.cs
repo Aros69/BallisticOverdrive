@@ -16,7 +16,7 @@ public class HealthManager : MonoBehaviour
     public bool takeDamage()
     {
         m_HP--;
-		PlayerDie();
+		//PlayerDie();
 		return isDead();
     }
 
@@ -27,9 +27,7 @@ public class HealthManager : MonoBehaviour
 
 	private void PlayerDie()
 	{
-		//GameManager.
-		//NetworkIdentity identity = GetComponent<NetworkIdentity>();
-		//TargetDead(identity.connectionToClient);
+		GameManager.Instance.PlayerDie(gameObject);
 	}
     void Update()
     {

@@ -169,6 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4523309521731126423}
+  - component: {fileID: 7964244782842667344}
   - component: {fileID: 589906176249651525}
   - component: {fileID: 7790920754404375555}
   - component: {fileID: 7460914716081188578}
@@ -209,6 +210,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7964244782842667344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6866462897854097301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957987a1964c16844bdd3e9a039df4be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _GameManager: {fileID: 6014673217511865239, guid: ed1c00e482c3a1a42b748e95140115f4,
+    type: 3}
 --- !u!114 &589906176249651525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  _GameManager: {fileID: 6014673217511865239, guid: ed1c00e482c3a1a42b748e95140115f4,
+    type: 3}
   m_Camera: {fileID: 5571851126452177022}
   m_standingCameraPosition: {fileID: 4392881209125169349}
   m_crouchingCameraPosition: {fileID: 8520713844183553242}
