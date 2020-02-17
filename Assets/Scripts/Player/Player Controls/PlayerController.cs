@@ -57,12 +57,19 @@ public class PlayerController : NetworkBehaviour
 	private void Start()
 	{
         m_rigidBody = GetComponent<Rigidbody>();
+        // If the player is not local disable the rigidbody (To prevent gravity being applied two times)
         if(!isLocalPlayer)
-        {
-            m_rigidBody.isKinematic = true;
-        }
+            BlockMovement();
 	}
 
+    void BlockMovement()
+    {
+        m_rigidBody.isKinematic = true;
+    }
+    void Teleport(Vector3 v)
+    {
+        m_rigidBody.position = v;
+    }
 	// Use this for initialization
 	public override void OnStartLocalPlayer()
     {
@@ -109,12 +116,6 @@ public class PlayerController : NetworkBehaviour
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
-			CmdTest();
-
-			GameManager.Instance.AddPlayer(gameObject);
-			Debug.Log("blue team number " + GameManager.Instance.getTeamNB(Team.Blue));
-			Debug.Log("red team number " + GameManager.Instance.getTeamNB(Team.Red));
-
 		}
 	}
 
@@ -160,11 +161,4 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
     }
-
-
-	[Command]
-	private void CmdTest()
-	{
-		Debug.Log("server: Test");
-	}
 }
