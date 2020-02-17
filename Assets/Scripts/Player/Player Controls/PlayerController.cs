@@ -182,10 +182,6 @@ public class PlayerController : NetworkBehaviour
 			GameObject.Find("CmdTestObject").GetComponent<CmdTest>().SrvCallServer();
 		}
 	}
-
-	[ClientRpc]
-	public void RpcCall()
-	{
-		Debug.Log("server? " + isServer);
-	}
+	
+	
 }

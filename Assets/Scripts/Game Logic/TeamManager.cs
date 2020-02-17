@@ -8,6 +8,7 @@ public enum Team {Red, Blue, Black, Nb};
 public class TeamManager: NetworkBehaviour
 {
 	[SerializeField]
+	[SyncVar]
     private Team m_team;
     private bool m_isProjectile = false;
     static bool m_redTeamFull = false; 

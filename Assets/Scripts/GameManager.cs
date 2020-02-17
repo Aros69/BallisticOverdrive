@@ -20,8 +20,8 @@ public class GameManager : NetworkBehaviour
 	private int _maxPlayer; // max player by team
 	private GameObject _resultScreen;
 
-	private List<GameObject> _playersLists;
-	private List<GameObject>[] _TeamLists; //2D array of player seperate in team
+	public List<GameObject> _playersLists;
+	public List<GameObject>[] _teamLists; //2D array of player seperate in team
 	private Team _attack_side;
 	private Team _defense_side;
 	
@@ -46,10 +46,10 @@ public class GameManager : NetworkBehaviour
 			// init
 			_alivePlayers = new int[(int)Team.Nb - 1];
 			_playersLists = new List<GameObject>();
-			_TeamLists = new List<GameObject>[(int)Team.Nb - 1];
+			_teamLists = new List<GameObject>[(int)Team.Nb - 1];
 			for (int i = 0; i < (int)Team.Nb - 1; i++)
 			{
-				_TeamLists[i] = new List<GameObject>();
+				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayer = 1;
 		}
@@ -85,7 +85,7 @@ public class GameManager : NetworkBehaviour
 		{
 			for (int j = 0; j < _maxPlayer; j++)
 			{
-				_TeamLists[i].Add(_playersLists[i* _maxPlayer + j]);
+				_teamLists[i].Add(_playersLists[i* _maxPlayer + j]);
 				_playersLists[i * _maxPlayer + j].GetComponent<TeamManager>().setTeam((Team)i);
 			}
 			_alivePlayers[i] = _maxPlayer;
@@ -101,27 +101,19 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
-	private void SrvAddPlayer(GameObject player)
+	public void SrvAddPlayer(GameObject player)
 	{
+		Debug.Log("server here, adding player");
 		AddPlayer(player);
 
-		//update all game Manager
-		RpcAddPlayer(player);
-		TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
+		player.GetComponent<ServerCommunication>().TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
 
 		if (_playersLists.Count == _maxPlayer * ((int)Team.Nb - 1))
 		{
-			Debug.Log("game start");
 			SrvGameStart();
 		}
 	}
 
-	[ClientRpc]
-	public void RpcAddPlayer(GameObject player)
-	{
-		AddPlayer(player);
-		//Debug.Log("RpcAddplayer " + teamID.ToString());
-	}
 
 	[TargetRpc]
 	private void TargetWaitingPlayer(NetworkConnection conn, GameObject player)
@@ -137,37 +129,24 @@ public class GameManager : NetworkBehaviour
 	{
 		AssignSide();
 
-		RpcGameStart();
-
-		for (int i = 0; i < 2; i++)
+		// AttackTeam Team
+		GameObject[] spawns;
+		spawns = GameObject.FindGameObjectsWithTag("AttackSpawn");
+		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
-			for (int j = 0; j < 3; j++)
-			{
-				TargetGameStart();
-			}
+			_playersLists[i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
 		}
 
-		Debug.Log("my id " + base.netId);
+		// Blue Team
+		spawns = GameObject.FindGameObjectsWithTag("DefenseSpawn");
+		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
+		{
+			_playersLists[i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
+		}
+
 		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);
 		Debug.Log("blue player " + _alivePlayers[(int)Team.Blue]);
 	}
-
-	[ClientRpc]
-	private void RpcGameStart()
-	{
-		AssignSide();
-
-		Debug.Log("my id " + base.netId);
-		Debug.Log("red player " + _TeamLists[(int)Team.Red].Count);
-		Debug.Log("blue player " + _TeamLists[(int)Team.Blue].Count);
-	}
-
-	[TargetRpc]
-	private void TargetGameStart()
-	{
-
-	}
-
 
 
 	[Command]

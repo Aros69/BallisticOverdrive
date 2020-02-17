@@ -36,7 +36,7 @@ public class CmdTest : NetworkBehaviour
 	public void SrvCallServer()
 	{
 		Debug.Log("server only call");
-		GameObject.Find("Player_Merge(Clone)").GetComponent<PlayerController>().RpcCall();
+		//GameObject.Find("Player_Merge(Clone)").GetComponent<PlayerController>().RpcCall();
 	}
 	
 }
