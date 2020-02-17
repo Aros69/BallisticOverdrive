@@ -7,14 +7,30 @@ public class ServerCommunication : NetworkBehaviour
 {
 	private void Start()
 	{
-		CmdAddPlayer(gameObject);
+		if (isClient)
+		{
+			CmdAddPlayer();
+		}
 	}
 
 
 	[Command]
-	public void CmdAddPlayer(GameObject player)
+	public void CmdAddPlayer()
 	{
-		GameManager.Instance.SrvAddPlayer(player);
+		
+		GameManager.Instance.SrvAddPlayer(gameObject);
+	}
+
+	[Command]
+	public void CmdPlayerDie()
+	{
+		GameManager.Instance.SrvPlayerDie(gameObject);
+	}
+
+	[Command]
+	public void CmdPlayerLeave()
+	{
+		GameManager.Instance.SrvPlayerLeave(gameObject);
 	}
 
 	[TargetRpc]
@@ -29,9 +45,18 @@ public class ServerCommunication : NetworkBehaviour
 	{
 		if (hasAuthority)
 		{
-			Debug.Log("I teleport the player");
-			gameObject.GetComponent<PlayerController>().Teleport(new Vector3(0, 0, 0));
+			Debug.Log("I teleport the player to " + spawnPosition);
+			gameObject.GetComponent<PlayerController>().Teleport(spawnPosition);
 		}
 		// unblock player function (TODO)
+	}
+
+	[ClientRpc]
+	public void RpcSetWinner(Team winner)
+	{
+		if (winner == Team.Red)
+			HUDController.instance.SetMode(HUDMode.redTeamVictory);
+		else
+			HUDController.instance.SetMode(HUDMode.blueTeamVictory);
 	}
 }

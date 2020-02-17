@@ -109,18 +109,8 @@ public class PlayerController : NetworkBehaviour
             GetComponent<PlayerSounds>().PlayJumpSound();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
 
-			if (GameManager.Instance != null)
-			{
-				Debug.Log("game manager not null");
 
-				GetComponent<HealthManager>().takeDamage();
-
-			} else
-			{
-				Debug.Log("Game manager null!!");
-			}
-
-			CmdTesting();
+			//GetComponent<HealthManager>().takeDamage();
 		}
 	}
 
@@ -171,17 +161,9 @@ public class PlayerController : NetworkBehaviour
 	public void Teleport(Vector3 v)
 	{
 		Debug.Log("teleport player");
-	}
-
-	[Command]
-	public void CmdTesting()
-	{
-		Debug.Log("Server ? " + isServer);
-		if (isServer)
+		if(isLocalPlayer)
 		{
-			GameObject.Find("CmdTestObject").GetComponent<CmdTest>().SrvCallServer();
+			GetComponent<Rigidbody>().position = v;
 		}
 	}
-	
-	
 }
