@@ -43,25 +43,12 @@ public class Weapon : MonoBehaviour
             return false;
         else
         {
-            //CmdShoot();
-            //GameObject bullet = Instantiate(m_projectile, m_shootSpawn.position, m_shootSpawn.rotation);
             m_playerShootScript.shoot();
             m_ammo--;
-            //Debug.Log("Shot after server command");
         }
         return true;
     }
-    /*
-    // Impossible to use because Weapon Object is not a client
-    [Command]
-    public void CmdShoot()
-    {
-        Debug.Log("Shot from server command");
-        GameObject bullet = Instantiate(m_projectile, m_shootSpawn.position, m_shootSpawn.rotation);
-        NetworkServer.Spawn(bullet, base.connectionToClient);
-        bullet.GetComponent<Projectile>().SetOwner(gameObject);
-    }
-    */
+
 
     public void UpdateAmmo()
     {
