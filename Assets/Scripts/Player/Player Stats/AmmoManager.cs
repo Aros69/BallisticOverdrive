@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+
+
 public class AmmoManager : NetworkBehaviour
 {
     [SerializeField] private GameObject m_ammoHUD = null;
-    [SerializeField] private Weapon m_weapon = null;
+    [SerializeField] private GameObject m_weaponObj = null;
     [SerializeField] private bool m_debug = false;
+    private Weapon m_weapon;
 
     public float Ammo
     {
@@ -21,7 +24,8 @@ public class AmmoManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(m_ammoHUD != null)
+        m_weapon = m_weaponObj.GetComponent<Weapon>();
+        if (m_ammoHUD != null)
             m_ammoHUD.GetComponent<Renderer>().material.SetFloat("_AmmoMax", m_weapon.maxCapacity);
     }
 
@@ -31,9 +35,9 @@ public class AmmoManager : NetworkBehaviour
         UpdateAmmo();
         if (isLocalPlayer)
         {
-            if(Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                m_weapon.Shoot();
             }
         }
     }
