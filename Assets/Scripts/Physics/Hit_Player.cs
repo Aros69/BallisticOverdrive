@@ -10,7 +10,10 @@ public class Hit_Player : Hit
         Vector3 f = o.GetComponent<Projectile>().getDirection() * o.GetComponent<Rigidbody>().mass;
         GetComponent<Rigidbody>().AddForce(f);
         GetComponent<PlayerSounds>().PlayOuchSound();
-        if(GetComponent<HealthManager>().takeDamage())
-            Destroy(gameObject);
+        if(isLocalPlayer)
+        {
+            if(GetComponent<HealthManager>().takeDamage())
+                Destroy(gameObject);
+        }
     }
 }

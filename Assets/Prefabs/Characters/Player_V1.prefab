@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 2974605544035615534}
   - component: {fileID: 660507621981783738}
   m_Layer: 10
-  m_Name: Player_Merge
+  m_Name: Player_V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Camera: {fileID: 5571851126452177022}
   m_standingCameraPosition: {fileID: 4392881209125169349}
   m_crouchingCameraPosition: {fileID: 8520713844183553242}
-  m_speed: 2
+  m_speed: 1.5
   m_lookSensitivity: 3
   m_jumpforce: 500
   m_airDrag: 1.001
@@ -411,6 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e51cced914ab546a802f999f88669a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &1756448264687410043
 MonoBehaviour:
   m_ObjectHideFlags: 0

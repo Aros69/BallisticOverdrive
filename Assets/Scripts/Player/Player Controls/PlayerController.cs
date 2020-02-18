@@ -57,9 +57,21 @@ public class PlayerController : NetworkBehaviour
 	private void Start()
 	{
         m_rigidBody = GetComponent<Rigidbody>();
+        // If the player is not local disable the rigidbody (To prevent gravity being applied two times)
+        if(!isLocalPlayer)
+            BlockMovement();
 	}
 	
 
+    public void BlockMovement()
+    {
+        m_rigidBody.isKinematic = true;
+    }
+    public void Teleport(Vector3 v)
+    {
+        if(isLocalPlayer)
+            m_rigidBody.position = v;
+    }
 	// Use this for initialization
 	public override void OnStartLocalPlayer()
     {
@@ -94,8 +106,7 @@ public class PlayerController : NetworkBehaviour
         Vector3 kinecticForce = (m_moveHorizontal + m_moveVertical)* m_speed;
         if(!m_grounded)
             kinecticForce *= m_airControl;
-        m_velocity += kinecticForce;
-        // if (m_velocity.magnitude > 1.0f) m_velocity = m_velocity.normalized;
+        m_velocity += kinecticForce * Time.fixedDeltaTime;
 
         //Compute camera rotation
         m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
@@ -108,9 +119,6 @@ public class PlayerController : NetworkBehaviour
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
             m_rigidBody.AddForce(Vector3.up * m_jumpforce);
-
-
-			//GetComponent<HealthManager>().takeDamage();
 		}
 	}
 
@@ -129,11 +137,12 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.position = m_standingCameraPosition.position;
         }
     }
+
     public void Update()
     {
         if(isLocalPlayer)
         {
-            ComputeMovements();
+            // ComputeMovements();
             Jump();
             Crouch();
         }
@@ -143,27 +152,16 @@ public class PlayerController : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
+            ComputeMovements();
             m_rigidBody.AddForce(new Vector3(0, - m_bonusGravity, 0), ForceMode.Force);
             if(m_grounded)
                 m_velocity *= 1.0f/m_groundDrag;
             else
                 m_velocity *= 1.0f/m_airDrag;
             
-            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity * Time.fixedDeltaTime);
+            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
             m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
     }
-	public void BlockMovement()
-	{
-		Debug.Log("playmouvement block");
-	}
-	public void Teleport(Vector3 v)
-	{
-		Debug.Log("teleport player");
-		if(isLocalPlayer)
-		{
-			GetComponent<Rigidbody>().position = v;
-		}
-	}
 }
