@@ -63,13 +63,14 @@ public class PlayerController : NetworkBehaviour
 	}
 	
 
-    void BlockMovement()
+    public void BlockMovement()
     {
         m_rigidBody.isKinematic = true;
     }
-    void Teleport(Vector3 v)
+    public void Teleport(Vector3 v)
     {
-        m_rigidBody.position = v;
+        if(isLocalPlayer)
+            m_rigidBody.position = v;
     }
 	// Use this for initialization
 	public override void OnStartLocalPlayer()
@@ -163,16 +164,4 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
     }
-	public void BlockMovement()
-	{
-		Debug.Log("playmouvement block");
-	}
-	public void Teleport(Vector3 v)
-	{
-		Debug.Log("teleport player");
-		if(isLocalPlayer)
-		{
-			GetComponent<Rigidbody>().position = v;
-		}
-	}
 }
