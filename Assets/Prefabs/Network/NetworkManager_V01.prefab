@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5725616355854681220}
   - component: {fileID: 5725616355854681221}
   - component: {fileID: 5725616355854681218}
-  - component: {fileID: 5725616355854681222}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: NetworkManager_V01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +121,7 @@ MonoBehaviour:
   OnServerFound:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5725616355854681222}
+      - m_Target: {fileID: 0}
         m_MethodName: OnDiscoveredServer
         m_Mode: 0
         m_Arguments:
@@ -133,16 +132,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5725616355854681222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5725616355854681223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c37d3deca7a834d80cfd8d3cfcc510, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkDiscovery: {fileID: 5725616355854681218}
