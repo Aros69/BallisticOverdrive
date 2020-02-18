@@ -347,6 +347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0323b6b6641f94f91837cead9c8237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   m_maxHP: 5
 --- !u!114 &6330298100447766860
 MonoBehaviour:
@@ -391,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec354f7660b42e94c89589e63ebd0d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jump: {fileID: 8300000, guid: 461a93f23d73b7f458e41d607b471ebc, type: 3}
+  m_jump: {fileID: 8300000, guid: fd5e0c9251f57d64abcd873f4d9cc2c6, type: 3}
   m_ouch: {fileID: 8300000, guid: 734a102f6595e624380185e676c58e0a, type: 3}
 --- !u!136 &703642036044210526
 CapsuleCollider:
