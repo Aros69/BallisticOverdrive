@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Hit : MonoBehaviour
+using Mirror;
+public class Hit : NetworkBehaviour
 {
     public virtual void hit(GameObject o)
     {
