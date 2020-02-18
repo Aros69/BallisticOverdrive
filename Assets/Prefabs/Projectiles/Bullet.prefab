@@ -19219,6 +19219,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  m_redVisual: {fileID: 1758988156077211912}
+  m_blueVisual: {fileID: 458870771223266341}
   m_team: 0
 --- !u!82 &-8286783310832046238
 AudioSource:
