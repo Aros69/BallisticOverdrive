@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Projectile : MonoBehaviour
+using Mirror;
+public class Projectile : NetworkBehaviour
 {
     private Rigidbody m_rigidBody;
     private GameObject m_owner;
@@ -41,21 +41,25 @@ public class Projectile : MonoBehaviour
     void Explode(Vector3 explosionPoint)
     {
         Instantiate(m_explosion, explosionPoint, transform.rotation);
-        Destroy(gameObject);
+        Destroy(gameObject,2.0f);
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject != m_owner) // Only collide with others
+        if(hasAuthority)
         {
-            if(col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
+            if((col.gameObject.GetComponent<NetworkIdentity>() != null && !col.gameObject.GetComponent<NetworkIdentity>().hasAuthority)
+            || col.gameObject.GetComponent<NetworkIdentity>() == null) // Only collide with others
             {
-                
-                if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
-                    col.GetComponent<Hit>().hit(gameObject);
+                    if(col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
+                    {
+                        
+                        if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
+                            col.GetComponent<Hit>().hit(gameObject);
+                    }
+                Explode(transform.position);
             }
-
-            Explode(transform.position);
+            
         }
     }
 }

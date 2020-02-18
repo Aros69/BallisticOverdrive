@@ -38,7 +38,7 @@ public class ServerCommunication : NetworkBehaviour
 	public void TargetWaitingPlayer(NetworkConnection conn, GameObject player)
 	{
 		player.GetComponent<PlayerController>().BlockMovement();
-		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 0, 0));
+		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.0f, 0));
 	}
 
 	[ClientRpc]
