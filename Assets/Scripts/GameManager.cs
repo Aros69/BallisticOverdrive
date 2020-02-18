@@ -138,19 +138,26 @@ public class GameManager : NetworkBehaviour
 		state = GameState.play;
 		AssignSide();
 
+		//organize spawn object
+		List<PlayerSpawn>[] spawns = new List<PlayerSpawn>[2];
+		spawns[0] = new List<PlayerSpawn>(); spawns[1] = new List<PlayerSpawn>();
+
+		foreach (PlayerSpawn spawn in GameObject.FindObjectsOfType<PlayerSpawn>())
+		{
+			if (spawn.SpawnType == SpawnType.attacker) spawns[(int)_attack_side].Add(spawn);
+			else spawns[(int)_defense_side].Add(spawn);
+		}
+
 		// AttackTeam
-		GameObject[] spawns;
-		spawns = GameObject.FindGameObjectsWithTag("AttackSpawn");
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
-			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
+			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[(int)_attack_side][i].transform.position);
 		}
 
 		// DefenseTeam
-		spawns = GameObject.FindGameObjectsWithTag("DefenseSpawn");
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
-			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
+			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[(int)_defense_side][i].transform.position);
 		}
 
 		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);
