@@ -11742,6 +11742,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefenderSpawn3
       objectReference: {fileID: 0}
+    - target: {fileID: 1415553193301860639, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33,
+        type: 3}
+      propertyPath: m_TagString
+      value: DefenseSpawn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33, type: 3}
 --- !u!4 &1699774579 stripped
@@ -11821,6 +11826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DefenderSpawn1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415553193301860639, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33,
+        type: 3}
+      propertyPath: m_TagString
+      value: DefenseSpawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33, type: 3}
@@ -14231,6 +14241,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefenderSpawn2
       objectReference: {fileID: 0}
+    - target: {fileID: 1415553193301860639, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33,
+        type: 3}
+      propertyPath: m_TagString
+      value: DefenseSpawn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33, type: 3}
 --- !u!4 &2147240556 stripped
@@ -14310,6 +14325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AttackerSpawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415553193301860639, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33,
+        type: 3}
+      propertyPath: m_TagString
+      value: AttackSpawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17da34b5ce4e3504ca4a5ba9bcc5aa33, type: 3}

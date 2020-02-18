@@ -2029,7 +2029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85033dad6644c2408aef95bdab8d060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_mapToLoad: elite_base
+  m_mapToLoad: elite_ruin
 --- !u!1 &1236548314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,6 +2698,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   _alivePlayers: 
+  _playersLists: []
 --- !u!114 &1540045666
 MonoBehaviour:
   m_ObjectHideFlags: 0
