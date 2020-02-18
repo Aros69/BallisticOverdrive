@@ -151,13 +151,15 @@ public class GameManager : NetworkBehaviour
 		// AttackTeam
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
-			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[(int)_attack_side][i].transform.position);
+			Vector3 spawnPos = spawns[(int)_attack_side][i].transform.position;
+			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side);
 		}
 
 		// DefenseTeam
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
-			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[(int)_defense_side][i].transform.position);
+			Vector3 spawnPos = spawns[(int)_defense_side][i].transform.position;
+			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side);
 		}
 
 		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);

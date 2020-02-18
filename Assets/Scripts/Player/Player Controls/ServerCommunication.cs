@@ -24,6 +24,7 @@ public class ServerCommunication : NetworkBehaviour
 	[Command]
 	public void CmdPlayerDie()
 	{
+		Debug.Log("some is dead here");
 		GameManager.Instance.SrvPlayerDie(gameObject);
 	}
 
@@ -41,12 +42,14 @@ public class ServerCommunication : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	public void RpcGameStart(Vector3 spawnPosition)
+	public void RpcGameStart(Vector3 spawnPosition, Team teamColor)
 	{
 		if (hasAuthority)
 		{
 			Debug.Log("I teleport the player to " + spawnPosition);
 			gameObject.GetComponent<PlayerController>().Teleport(spawnPosition);
+			if (teamColor == Team.Red) HUDController.instance.SetPlayerColor(Color.red);
+			if (teamColor == Team.Blue) HUDController.instance.SetPlayerColor(Color.blue);
 		}
 		// unblock player function (TODO)
 	}
@@ -54,6 +57,7 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcSetWinner(Team winner)
 	{
+		Debug.Log("set winner");
 		if (winner == Team.Red)
 			HUDController.instance.SetMode(HUDMode.redTeamVictory);
 		else

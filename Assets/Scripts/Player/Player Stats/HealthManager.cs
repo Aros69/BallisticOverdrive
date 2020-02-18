@@ -15,6 +15,7 @@ public class HealthManager : MonoBehaviour
     }
     public bool takeDamage()
     {
+		Debug.Log("current life " + m_HP);
         m_HP--;
 		return isDead();
     }
@@ -30,7 +31,11 @@ public class HealthManager : MonoBehaviour
 
 	private void PlayerDie()
 	{
-		GetComponent<ServerCommunication>().CmdPlayerDie();
+		if (gameObject.GetComponent<NetworkIdentity>().isClient)
+		{
+			Debug.Log("ow nooo im dead");
+			GetComponent<ServerCommunication>().CmdPlayerDie();
+		}
 	}
     void Update()
     {
