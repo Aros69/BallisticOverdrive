@@ -66,4 +66,9 @@ public class TeamManager: NetworkBehaviour
         GetComponent<AmmoManager>().init();
 		
 	}
+
+    void Start()
+    {
+        m_team = Team.Black;
+    }
 }

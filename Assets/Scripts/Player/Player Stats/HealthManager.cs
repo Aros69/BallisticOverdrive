@@ -12,6 +12,7 @@ public class HealthManager : MonoBehaviour
     public void setMaxHP(int m)
     {
         m_maxHP = m;
+        
     }
     public bool takeDamage()
     {
