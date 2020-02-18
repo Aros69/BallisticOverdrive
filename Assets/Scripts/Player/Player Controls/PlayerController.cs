@@ -65,7 +65,7 @@ public class PlayerController : NetworkBehaviour
 
     public void BlockMovement()
     {
-        m_rigidBody.isKinematic = true;
+        // m_rigidBody.isKinematic = true;
     }
     public void Teleport(Vector3 v)
     {

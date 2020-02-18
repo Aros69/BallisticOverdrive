@@ -7,6 +7,9 @@ public enum Team {Red, Blue, Black, Nb};
 // Network behaviour because it need GameManager to be launch
 public class TeamManager: NetworkBehaviour
 {
+    [SerializeField] private GameObject m_redVisual;
+    [SerializeField] private GameObject m_blueVisual;
+
 	[SerializeField]
 	[SyncVar]
     private Team m_team;
@@ -34,6 +37,18 @@ public class TeamManager: NetworkBehaviour
     public void setTeam(Team t)
     {
         m_team = t;
+
+        if(m_team == Team.Red){
+            if(m_blueVisual != null){
+                m_blueVisual.SetActive(false);
+                m_redVisual.SetActive(true);
+            }
+        } else {
+            if(m_redVisual != null){
+                m_redVisual.SetActive(false);
+                m_blueVisual.SetActive(true);
+            }
+        }
     }
 
     /// <Summary>
@@ -41,7 +56,7 @@ public class TeamManager: NetworkBehaviour
     /// </Summary>
     public void setProjectile(Team t, GameObject o)
     {
-        m_team = t;
+        setTeam(t);
         m_isProjectile = true;
         GetComponent<ProjectileInfo>().Owner = o;
     }
@@ -66,4 +81,9 @@ public class TeamManager: NetworkBehaviour
         GetComponent<AmmoManager>().init();
 		
 	}
+
+    void Start()
+    {
+        m_team = Team.Black;
+    }
 }

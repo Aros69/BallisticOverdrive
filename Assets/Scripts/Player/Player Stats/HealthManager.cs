@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class HealthManager : MonoBehaviour
+public class HealthManager : NetworkBehaviour
 {
     [SerializeField] private int m_maxHP = 5;
 	private int m_HP = 5;
@@ -12,10 +12,14 @@ public class HealthManager : MonoBehaviour
     public void setMaxHP(int m)
     {
         m_maxHP = m;
+            HUDController.instance.SetMaxLife(m);
+
     }
     public bool takeDamage()
     {
         m_HP--;
+        if(hasAuthority)
+            HUDController.instance.UpdateLife(m_HP);
 		return isDead();
     }
 

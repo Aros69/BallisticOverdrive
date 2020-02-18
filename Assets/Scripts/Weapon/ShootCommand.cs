@@ -39,8 +39,8 @@ public class ShootCommand : NetworkBehaviour
     public void CmdShoot(Vector3 pos, Quaternion rot)
     {
         GameObject bullet = Instantiate(m_weapon.projectile, pos, rot);
-        NetworkServer.Spawn(bullet, base.connectionToClient);
         bullet.GetComponent<Projectile>().SetOwner(gameObject);
+        NetworkServer.Spawn(bullet, base.connectionToClient);
     }
 
     public void Start()
