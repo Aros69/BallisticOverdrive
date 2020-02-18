@@ -12,7 +12,10 @@ public enum SpawnType
 public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private SpawnType spawnType;
-    private void OnDrawGizmos()
+
+	public SpawnType SpawnType { get => spawnType; }
+
+	private void OnDrawGizmos()
     {
         if (spawnType == SpawnType.attacker) {
             Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);

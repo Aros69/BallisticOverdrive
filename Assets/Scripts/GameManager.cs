@@ -3,19 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+public enum GameState
+{
+	waiting,
+	play,
+	result,
+	endgame,
+}
+
 public class GameManager : NetworkBehaviour
 {
 	private static GameManager _gameManager;
 	public static GameManager Instance { get { return _gameManager; } }
-	
-	private int [] _teamNB;
+
+	public int[] _alivePlayers; // number of player alive seperate in team
+	private int _maxPlayerTeam; // max player by team (use only if team same size)
+	private int _maxPlayer;
 	private GameObject _resultScreen;
-	private ArrayList _players_lists;
+
+	public List<GameObject> _playersLists;
+	public List<GameObject>[] _teamLists; //2D array of player seperate in team
+	private Team _attack_side;
+	private Team _defense_side;
+	GameState state;
+	
 
 	public int getTeamNB(Team id)
 	{
-		Debug.Log("getTeam " + _teamNB[(int)id]);
-		return _teamNB[(int)id];
+		Debug.Log("getTeam " + _alivePlayers[(int)id]);
+		return _alivePlayers[(int)id];
 	}
 	
 
@@ -29,104 +45,149 @@ public class GameManager : NetworkBehaviour
 		{
 			_gameManager = this;
 
-			_teamNB = new int[(int)Team.Nb];
-			_players_lists = new ArrayList();
+			// init
+			_alivePlayers = new int[(int)Team.Nb - 1];
+			_playersLists = new List<GameObject>();
+			_teamLists = new List<GameObject>[(int)Team.Nb - 1];
+			for (int i = 0; i < (int)Team.Nb - 1; i++)
+			{
+				_teamLists[i] = new List<GameObject>();
+			}
+			_maxPlayerTeam = 1;
+			_maxPlayer = 3;
+			state = GameState.waiting;
+		}
+
+		//Debug.Log("network identity : " + gameObject.GetComponent<NetworkIdentity>().netId);
+	}
+
+	private void GameInit(GameObject player)
+	{
+		Debug.Log("GameInit is server " + isServer);
+		CmdGameInit(player);
+	}
+
+	private void AddPlayer(GameObject player)
+	{
+		_playersLists.Add(player);
+		Debug.Log("player list : " + _playersLists.Count);
+	}
+
+	// TODO shuffle function (and give random to parameter so everyone has same random)
+	private void AssignSide()
+	{
+		_attack_side = Team.Red;
+		_defense_side = Team.Blue;
+
+
+		///////////// if team has same size (with spectator)
+		/*
+		for (int i = 0; i < (int)Team.Nb-1; i++)
+		{
+			for (int j = 0; j < _maxPlayerTeam; j++)
+			{
+				_teamLists[i].Add(_playersLists[i* _maxPlayerTeam + j]);
+				_playersLists[i * _maxPlayerTeam + j].GetComponent<TeamManager>().setTeam((Team)i);
+			}
+			_alivePlayers[i] = _maxPlayerTeam;
+		}
+		*/
+
+		// first player on attack_side
+		_teamLists[(int)_attack_side].Add(_playersLists[0]);
+		_playersLists[0].GetComponent<TeamManager>().setTeam(_attack_side);
+		_alivePlayers[(int)_attack_side] = 1;
+		for (int i = 1; i < _playersLists.Count; i++)
+		{
+			_teamLists[(int)_defense_side].Add(_playersLists[i]);
+			_playersLists[i].GetComponent<TeamManager>().setTeam(_defense_side);
+		}
+		_alivePlayers[(int)_defense_side] = _playersLists.Count - 1;
+	}
+
+
+	[Server]
+	public void CmdGameInit(GameObject player)
+	{
+		Debug.Log("CmdGameInit: doing some init here");
+		SrvAddPlayer(player);
+	}
+
+	[Server]
+	public void SrvAddPlayer(GameObject player)
+	{
+		Debug.Log("server here, adding player");
+		AddPlayer(player);
+
+		player.GetComponent<ServerCommunication>().TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
+
+		if (_playersLists.Count == _maxPlayerTeam * ((int)Team.Nb - 1) || _playersLists.Count == _maxPlayer)
+		{
+			if (state == GameState.waiting)
+			{
+				SrvGameStart();
+			}
+			// else ajouter le joueur en plein partie?
 		}
 	}
 
-	private void Update()
-	{
-		//if (Input.GetKeyDown(KeyCode.Space) &&)
-		//{
-		//	GetComponent<AudioSource>().Play();
-		//	m_rigidBody.AddForce(Vector3.up * m_jumpforce);
-		//	CmdTest();
-		//	GameManager.Instance.AddPlayer(Team.Red);
 
-		//}
-		Debug.Log("update GameManager");
+	[Server]
+	private void SrvGameStart()
+	{
+		state = GameState.play;
+		AssignSide();
+
+		// AttackTeam
+		GameObject[] spawns;
+		spawns = GameObject.FindGameObjectsWithTag("AttackSpawn");
+		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
+		{
+			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
+		}
+
+		// DefenseTeam
+		spawns = GameObject.FindGameObjectsWithTag("DefenseSpawn");
+		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
+		{
+			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawns[i].transform.position);
+		}
+
+		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);
+		Debug.Log("blue player " + _alivePlayers[(int)Team.Blue]);
 	}
 
-
-	//mettre a jour avec spaw coter client?
-	public void AddPlayer(GameObject player)
+	[Server]
+	public void SrvPlayerDie(GameObject player)
 	{
-		Debug.Log("client: add player");
-		
+		Team teamPlayer = player.GetComponent<TeamManager>().getTeam();
+		_alivePlayers[(int)teamPlayer]--;
+		Debug.Log("player " + player.GetComponent<NetworkIdentity>().netId + " is dead");
 
-		CmdAddPlayer(player);
-		Debug.Log("network identity : " + gameObject.GetComponent<NetworkIdentity>().netId);
+		if (_alivePlayers[(int)teamPlayer] == 0)
+		{
+			state = GameState.result;
+			Team teamLoser = teamPlayer;
+			Team teamWinner = (Team)(((int)teamLoser + 1) % 2);
+			Debug.Log("winner team is " + teamWinner);
+			Debug.Log("loser team is " + teamLoser);
+
+			player.GetComponent<ServerCommunication>().RpcSetWinner(teamWinner);
+		}
 	}
-
-	public void PlayerDie(NetworkIdentity localPlayer)
-	{
-		//CmdPlayerDie(localPlayer);
-	}
-
-	[Command]
-	private void CmdAddPlayer(GameObject player)
-	{
 	
-		Debug.Log("Server: add player");
-
-		_players_lists.Add(player);
-		Team teamID = player.GetComponent<TeamManager>().getTeam();
-		_teamNB[(int)teamID]++;
-
-		//update all game Manager
-		RpcAddPlayer(player);
-	}
-
-
-	//[Command]
-	//private void CmdPlayerDie(NetworkIdentity localPlayer)
-	//{
-	//	Team id = localPlayer.GetComponent<TeamManager>().getTeam();
-
-	//	TargetPlayerDie(localPlayer.connectionToClient);
-	//	RpcRemovePlayer(id);
-	//}
-
-	[ClientRpc]
-	public void RpcAddPlayer(GameObject player)
+	// TODO recheck if list remove work well with game object
+	[Server]
+	public void SrvPlayerLeave(GameObject player)
 	{
-		Team teamID = player.GetComponent<TeamManager>().getTeam();
-		_teamNB[(int)teamID]++;
-		Debug.Log("yay a new member for team " + teamID.ToString());
+		_playersLists.Remove(player);
+		for (int i = 0; i < (int)Team.Nb - 1; i++)
+		{
+			if (_teamLists[i].IndexOf(player) != -1)
+			{
+				_teamLists[i].Remove(player);
+				_alivePlayers[i]--;
+			}
+		}
 	}
-
-	//[TargetRpc]
-	//private void TargetPlayerDie(NetworkConnection conn)
-	//{
-	//	Debug.Log("he is dead " + conn.connectionId);
-	//}
-
-	//[ClientRpc]
-	//private void RpcRemovePlayer(Team id)
-	//{
-	//	Debug.Log("we lose someone here " + id.ToString());
-
-	//	_teamNB[(int)id]--;
-	//	if (_teamNB[(int)id] == 0)
-	//	{
-	//		RpcTeamWin(id);
-	//	}
-	//}
-
-	//// TODO code to change, find a way to dynamise UI?
-	//[ClientRpc]
-	//private void RpcTeamWin(Team winner)
-	//{
-	//	Debug.Log("the winner is " + winner.ToString());
-	//	Team ownTeam = ClientScene.localPlayer.GetComponent<TeamManager>().getTeam();
-	//	if (ownTeam == winner)
-	//	{
-	//		_resultScreen = Instantiate(Resources.Load("UI/WinnerScreen"), GameObject.Find("Canvas").transform) as GameObject;
-	//	}
-	//	else
-	//	{
-	//		_resultScreen = Instantiate(Resources.Load("UI/LooserScreen"), GameObject.Find("Canvas").transform) as GameObject;
-	//	}
-	//}
-
 }
