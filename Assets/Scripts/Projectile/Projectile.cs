@@ -41,25 +41,25 @@ public class Projectile : NetworkBehaviour
     void Explode(Vector3 explosionPoint)
     {
         Instantiate(m_explosion, explosionPoint, transform.rotation);
-        Destroy(gameObject);
+        Destroy(gameObject,2.0f);
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if(hasAuthority)
         {
-            if(col.gameObject.GetComponent<NetworkIdentity>() != null && !col.gameObject.GetComponent<NetworkIdentity>().hasAuthority) // Only collide with others
+            if((col.gameObject.GetComponent<NetworkIdentity>() != null && !col.gameObject.GetComponent<NetworkIdentity>().hasAuthority)
+            || col.gameObject.GetComponent<NetworkIdentity>() == null) // Only collide with others
             {
-                
                     if(col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
                     {
                         
                         if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
                             col.GetComponent<Hit>().hit(gameObject);
                     }
-                
+                Explode(transform.position);
             }
-            Explode(transform.position);
+            
         }
     }
 }
