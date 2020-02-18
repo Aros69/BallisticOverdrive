@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
 public enum HUDMode
 {
@@ -183,7 +184,11 @@ public class HUDController : MonoBehaviour
     }
 
     public void LeaveGame(){
-        ODNetworkManager.singleton.StopClient();
+        if(ODNetworkManager.singleton.mode == NetworkManagerMode.ClientOnly){
+            ODNetworkManager.singleton.StopClient();
+        } else {
+            ODNetworkManager.singleton.StopHost();
+        }
     }
 
     public void Quit(){

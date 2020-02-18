@@ -4,8 +4,8 @@ using UnityEngine;
 using Mirror;
 public class PlayerController : NetworkBehaviour
 {
-    // Input store values
-    private float m_MovX;
+	// Input store values
+	private float m_MovX;
     private float m_MovY;
     private float m_yRot;
     private float m_xRot;
@@ -61,6 +61,7 @@ public class PlayerController : NetworkBehaviour
         if(!isLocalPlayer)
             BlockMovement();
 	}
+	
 
     void BlockMovement()
     {
@@ -79,9 +80,10 @@ public class PlayerController : NetworkBehaviour
         m_height = transform.localScale.y;
         m_width = transform.localScale.x;
         m_collider = GetComponent<CapsuleCollider>();
-    }
+		//CmdSpawnGameManager();
+	}
 
-    private bool isGrounded()
+	private bool isGrounded()
     {
         return Physics.Raycast(transform.position, -transform.up, m_height+0.1f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore);
     }
@@ -161,4 +163,16 @@ public class PlayerController : NetworkBehaviour
             m_Camera.transform.Rotate(-m_cameraRotation);
         }
     }
+	public void BlockMovement()
+	{
+		Debug.Log("playmouvement block");
+	}
+	public void Teleport(Vector3 v)
+	{
+		Debug.Log("teleport player");
+		if(isLocalPlayer)
+		{
+			GetComponent<Rigidbody>().position = v;
+		}
+	}
 }

@@ -16,20 +16,21 @@ public class HealthManager : MonoBehaviour
     public bool takeDamage()
     {
         m_HP--;
-		PlayerDie();
 		return isDead();
     }
 
     public bool isDead()
     {
+		if (m_HP <= 0)
+		{
+			PlayerDie();
+		}
         return m_HP <= 0;
     }
 
 	private void PlayerDie()
 	{
-		//GameManager.
-		//NetworkIdentity identity = GetComponent<NetworkIdentity>();
-		//TargetDead(identity.connectionToClient);
+		GetComponent<ServerCommunication>().CmdPlayerDie();
 	}
     void Update()
     {
