@@ -11,21 +11,40 @@ public enum GameState
 	endgame,
 }
 
+[System.Serializable]
+public struct PlayerProfile
+{
+	//const float Speed = 5.0f;
+	//const float LookSensitivity = 3.0f;
+	//const float Jumpforce = 500;
+	//const float AirDrag = 1.001f;
+	//const float GroundDrag = 1.2f;
+	//const float AirControl = 0.05f;
+	//const float BonusGravity = 2.0f;
+	public int MaxLife;
+}
+
 public class GameManager : NetworkBehaviour
 {
 	private static GameManager _gameManager;
 	public static GameManager Instance { get { return _gameManager; } }
 
-	public int[] _alivePlayers; // number of player alive seperate in team
+	[SerializeField]
+	private PlayerProfile _AttackPlayer;
+	[SerializeField]
+	private PlayerProfile _DefensePlayer;
+
+	private int[] _alivePlayers; // number of player alive seperate in team
 	private int _maxPlayerTeam; // max player by team (use only if team same size)
 	private int _maxPlayer;
 	private GameObject _resultScreen;
 
-	public List<GameObject> _playersLists;
-	public List<GameObject>[] _teamLists; //2D array of player seperate in team
+	private List<GameObject> _playersLists;
+	private List<GameObject>[] _teamLists; //2D array of player seperate in team
 	private Team _attack_side;
 	private Team _defense_side;
 	GameState state;
+	private int timer;
 	
 
 	public int getTeamNB(Team id)
@@ -54,17 +73,20 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 1;
-			_maxPlayer = 3;
+			_maxPlayer = 2;
 			state = GameState.waiting;
+			timer = 0;
 		}
 
 		//Debug.Log("network identity : " + gameObject.GetComponent<NetworkIdentity>().netId);
 	}
 
-	private void GameInit(GameObject player)
+	private void Update()
 	{
-		Debug.Log("GameInit is server " + isServer);
-		CmdGameInit(player);
+		//if (timer%1000 == 0)
+		//{
+		//	SrvCheckPlayer();
+		//}
 	}
 
 	private void AddPlayer(GameObject player)
@@ -105,18 +127,9 @@ public class GameManager : NetworkBehaviour
 		_alivePlayers[(int)_defense_side] = _playersLists.Count - 1;
 	}
 
-
-	[Server]
-	public void CmdGameInit(GameObject player)
-	{
-		Debug.Log("CmdGameInit: doing some init here");
-		SrvAddPlayer(player);
-	}
-
 	[Server]
 	public void SrvAddPlayer(GameObject player)
 	{
-		Debug.Log("server here, adding player");
 		AddPlayer(player);
 
 		player.GetComponent<ServerCommunication>().TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
@@ -152,14 +165,14 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_attack_side][i].transform.position;
-			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side);
+			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side, _AttackPlayer);
 		}
 
 		// DefenseTeam
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_defense_side][i].transform.position;
-			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side);
+			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side, _DefensePlayer);
 		}
 
 		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);
@@ -172,7 +185,7 @@ public class GameManager : NetworkBehaviour
 		Team teamPlayer = player.GetComponent<TeamManager>().getTeam();
 		_alivePlayers[(int)teamPlayer]--;
 		Debug.Log("player " + player.GetComponent<NetworkIdentity>().netId + " is dead");
-
+		
 		if (_alivePlayers[(int)teamPlayer] == 0)
 		{
 			state = GameState.result;
@@ -196,6 +209,23 @@ public class GameManager : NetworkBehaviour
 			{
 				_teamLists[i].Remove(player);
 				_alivePlayers[i]--;
+			}
+		}
+	}
+
+	// TODO not done
+	[Server]
+	public void SrvCheckPlayer()
+	{
+		for (int i = 0; i < (int)Team.Nb - 1; i++)
+		{
+			int nbPlayer = _teamLists[i].Count;
+			for (int j = 0; j < nbPlayer; j++)
+			{
+				if (_teamLists[i][j] == null)
+				{
+					_teamLists[i].RemoveAt(j);
+				}
 			}
 		}
 	}
