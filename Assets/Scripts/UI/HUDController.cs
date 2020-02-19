@@ -112,10 +112,12 @@ public class HUDController : MonoBehaviour
     {
         GameObject template = ((Transform)healthBarContainer).GetChild(0).gameObject;
 
+        maxHealthBarSize = (healthBarContainer.rect.width - maxLife * (barSpacing + 1)) / maxLife;
+
         healthBars = new GameObject[maxLife];
         for(int i = 0; i < maxLife; i++)
         {
-            healthBars[i] = Instantiate(template);
+            healthBars[i] = Instantiate(template, healthBarContainer.transform);
             healthBars[i].SetActive(true);
             ((RectTransform)healthBars[i].transform).sizeDelta = new Vector2(maxHealthBarSize, 40);
             ((RectTransform)healthBars[i].transform).anchoredPosition = new Vector2(barSpacing*(i+1)+maxHealthBarSize*i, 0);
@@ -139,10 +141,12 @@ public class HUDController : MonoBehaviour
     {
         GameObject template = ((Transform)ammoBarContainer).GetChild(0).gameObject;
 
+        maxAmmoBarSize = (ammoBarContainer.rect.width - maxAmmo * (barSpacing + 1)) / maxAmmo;
+
         ammoBars = new GameObject[maxAmmo];
         for (int i = 0; i < maxAmmo; i++)
         {
-            ammoBars[i] = Instantiate(template);
+            ammoBars[i] = Instantiate(template, ammoBarContainer.transform);
             ammoBars[i].SetActive(true);
             ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
             ((RectTransform)ammoBars[i].transform).anchoredPosition = new Vector2(barSpacing * (i + 1) + maxAmmoBarSize * i, 0);

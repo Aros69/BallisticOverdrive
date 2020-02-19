@@ -39,6 +39,7 @@ public class ShootCommand : NetworkBehaviour
     {
         Debug.Log(m_weapon.projectile);
         GameObject bullet = Instantiate(m_weapon.projectile, pos, rot);
+        bullet.GetComponent<TeamManager>().setTeam(GetComponent<TeamManager>().getTeam());
         NetworkServer.Spawn(bullet, base.connectionToClient);
     }
 

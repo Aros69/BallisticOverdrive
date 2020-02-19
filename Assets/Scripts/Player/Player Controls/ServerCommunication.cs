@@ -7,17 +7,16 @@ public class ServerCommunication : NetworkBehaviour
 {
 	private void Start()
 	{
-		if (isClient)
-		{
-			CmdAddPlayer();
-		}
+		//if (isClient)
+		//{
+		//	CmdAddPlayer();
+		//}
 	}
 
 
 	[Command]
 	public void CmdAddPlayer()
 	{
-		
 		GameManager.Instance.SrvAddPlayer(gameObject);
 	}
 

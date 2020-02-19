@@ -41,7 +41,7 @@ public class Projectile : NetworkBehaviour
     void Explode(Vector3 explosionPoint)
     {
         Instantiate(m_explosion, explosionPoint, transform.rotation);
-        Destroy(gameObject,2.0f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider col)
