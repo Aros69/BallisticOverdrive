@@ -52,6 +52,7 @@ public class ServerCommunication : NetworkBehaviour
 			HUDController.instance.SetMode(HUDMode.playing);
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
+		gameObject.GetComponent<TeamManager>().setTeam(teamColor);
 
 		// unblock player function (TODO)
 	}

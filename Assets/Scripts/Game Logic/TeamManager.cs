@@ -11,7 +11,7 @@ public class TeamManager: NetworkBehaviour
     [SerializeField] private GameObject m_blueVisual;
 
 	[SerializeField]
-	[SyncVar]
+	//[SyncVar]
     private Team m_team;
     private bool m_isProjectile = false;
     static bool m_redTeamFull = false; 
