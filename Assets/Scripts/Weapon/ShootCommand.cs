@@ -30,7 +30,6 @@ public class ShootCommand : NetworkBehaviour
             distanceHit = 100f;
         }
         Vector3 shotDirection = ray.GetPoint(distanceHit) - m_weapon.shootSpawn.position;
-        Debug.Log(shotDirection);
         CmdShoot(m_weapon.shootSpawn.position, Quaternion.LookRotation(shotDirection, m_weapon.shootSpawn.up));
     }
 
@@ -38,8 +37,8 @@ public class ShootCommand : NetworkBehaviour
     [Command]
     public void CmdShoot(Vector3 pos, Quaternion rot)
     {
+        Debug.Log(m_weapon.projectile);
         GameObject bullet = Instantiate(m_weapon.projectile, pos, rot);
-        bullet.GetComponent<Projectile>().SetOwner(gameObject);
         NetworkServer.Spawn(bullet, base.connectionToClient);
     }
 

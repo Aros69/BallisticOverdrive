@@ -39,14 +39,15 @@ public class Weapon : MonoBehaviour
     // return false if unable to shoot
     public bool Shoot()
     {
+        Debug.Log(m_ammo);
         if (m_ammo == 0)
             return false;
         else
         {
-            m_playerShootScript.shoot();
             m_ammo--;
+            m_playerShootScript.shoot();
+            return true;
         }
-        return true;
     }
 
 
