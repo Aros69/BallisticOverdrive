@@ -26,6 +26,11 @@ public class StartSceneManager : MonoBehaviour
         StartCoroutine(FadeInElement());
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Space))
+            SceneManager.LoadScene(m_mainMenuScene);
+    }
+
     private IEnumerator FadeInElement(){
         while(m_elements[m_currentElement].alpha < 1.0f){
             m_elements[m_currentElement].alpha += Time.deltaTime * m_fadeTime;

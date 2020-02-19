@@ -160,23 +160,24 @@ public class HUDController : MonoBehaviour
 
     public void UpdateAmmo(float ammo)
     {
+        Debug.Log(ammo);
         int ammoCount = (int)ammo;
         ammo = ammo - ammoCount;
         for (int i = 0; i < ammoCount; i++)
         {
-            healthBars[i].SetActive(true);
+            ammoBars[i].SetActive(true);
             ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
         }
 
         if(ammoCount < ammoBars.Length)
         {
-            healthBars[ammoCount].SetActive(true);
+            ammoBars[ammoCount].SetActive(true);
             ((RectTransform)ammoBars[ammoCount].transform).sizeDelta = new Vector2(maxAmmoBarSize*ammo, 40);
         }
 
         for (int i = ammoCount+1; i < ammoBars.Length; i++)
         {
-            healthBars[i].SetActive(false);
+            ammoBars[i].SetActive(false);
         }
     }
 

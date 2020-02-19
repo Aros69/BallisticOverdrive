@@ -2655,8 +2655,10 @@ MonoBehaviour:
   syncInterval: 0.1
   _AttackPlayer:
     MaxLife: 3
+    weaponType: 1
   _DefensePlayer:
     MaxLife: 3
+    weaponType: 0
   _maxPlayerTeam: 0
   _maxPlayer: 0
 --- !u!114 &1540045666

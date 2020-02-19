@@ -54,16 +54,11 @@ public class AmmoManager : NetworkBehaviour
 
     void UpdateAmmo()
     {
-        if(m_ammoHUD != null)
-        {    
-            // Update HUD
-            m_ammoHUD.GetComponent<Renderer>().material.SetFloat("_AmmoLeft", m_weapon.ammo + m_weapon.reloading + m_weapon.delay);
-        }
         if(m_debug)
             Print();
     }
     void Print()
     {
-        Debug.Log("ammo left : " + m_weapon.ammo + "\nm_reloading : " + m_weapon.reloading);
+        Debug.Log("ammo left : " + m_weapon.ammo);
     }
 }

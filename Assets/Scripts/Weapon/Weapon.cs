@@ -25,26 +25,24 @@ public class Weapon : MonoBehaviour
         get => m_maxCapacity;
     }
     [SerializeField] protected float m_reloadTime = 1;
-    [SerializeField] protected float m_delay = 0.5f;
+    [SerializeField] protected float m_delay = 0.0f;
     public float delay { get => m_delay; }
 
     private float m_ammo = 3;
     public float ammo { get => m_ammo; }
 
     //Automatic m_reloading
-    private float m_reloading = 0;
-    public float reloading { get => m_reloading; }
     private float m_startedReload = 0;
 
     // return false if unable to shoot
     public bool Shoot()
     {
         Debug.Log(m_ammo);
-        if (m_ammo == 0)
+        if (m_ammo < 1.0f)
             return false;
         else
         {
-            m_ammo--;
+            m_ammo -= 1.0f;
             m_playerShootScript.shoot();
             return true;
         }
@@ -56,17 +54,13 @@ public class Weapon : MonoBehaviour
 
         if (m_ammo < m_maxCapacity)
         {
-            // We want to keep track of when we started m_reloading current bullet, set to time if not already the case
-            if (m_startedReload == 0)
-                m_startedReload = Time.time;
+            m_ammo += Time.deltaTime/m_reloadTime;
+        } else {
+            m_ammo = m_maxCapacity;
+        }
 
-            m_reloading = (Time.time - m_startedReload) / m_reloadTime - m_delay;
-            if (m_reloading > 1.0)
-            {
-                m_ammo++;
-                m_startedReload = 0;
-                m_reloading = 0;
-            }
+        if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
+            HUDController.instance.UpdateAmmo(m_ammo);
         }
     }
     
@@ -75,6 +69,13 @@ public class Weapon : MonoBehaviour
         m_ammo = m_maxCapacity;
         m_shootSpawn = transform.GetChild(1);
         m_playerShootScript = m_player.GetComponent<ShootCommand>();
+    }
+
+    void Start()
+    {
+        if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
+            HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
+        }
     }
 
     // Update is called once per frame

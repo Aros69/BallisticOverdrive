@@ -51,6 +51,9 @@ public class ServerCommunication : NetworkBehaviour
 			HUDController.instance.SetMode(HUDMode.playing);
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
+		
+		//TODO : Set player weapon to the right weapon depending on profile.weaponType
+
 		gameObject.GetComponent<TeamManager>().setTeam(teamColor);
 
 		// unblock player function (TODO)
