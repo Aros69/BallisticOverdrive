@@ -26,6 +26,12 @@ public class ServerCommunication : NetworkBehaviour
 		GameManager.Instance.SrvPlayerDie(gameObject);
 	}
 
+	[ClientRpc]
+	public void RpcPlayerDie()
+	{
+		Destroy(gameObject);
+	}
+
 	[Command]
 	public void CmdPlayerLeave()
 	{
@@ -49,6 +55,11 @@ public class ServerCommunication : NetworkBehaviour
 
 			// permet executer 1 fois
 			HUDController.instance.SetMode(HUDMode.playing);
+			if (teamColor == Team.Red)
+				HUDController.instance.SetPlayerColor(Color.red);
+			else
+				HUDController.instance.SetPlayerColor(Color.red);
+
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
 		
@@ -71,15 +82,13 @@ public class ServerCommunication : NetworkBehaviour
 	[Command]
 	public void CmdPlayerHit(GameObject player)
 	{
-		Debug.Log("server: player got hit");
-		TargetPlayerHit(player.GetComponent<NetworkIdentity>().connectionToClient);
+		GameManager.Instance.SrvPlayerGetHit(player);
+
 	}
 
-	[TargetRpc]
-	public void TargetPlayerHit(NetworkConnection conn)
+	[ClientRpc]
+	public void RpcPlayerGetHit()
 	{
-		Debug.Log("target player hit");
-		if (hasAuthority)
-			GetComponent<HealthManager>().takeDamage();
+		GetComponent<HealthManager>().takeDamage();
 	}
 }

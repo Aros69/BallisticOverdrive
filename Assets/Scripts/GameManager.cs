@@ -172,6 +172,7 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_attack_side][i].transform.position;
+			Debug.Log("teleport attack player to " + spawnPos);
 			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side, _AttackPlayer);
 		}
 
@@ -179,6 +180,7 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_defense_side][i].transform.position;
+			Debug.Log("teleport defense player to " + spawnPos);
 			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side, _DefensePlayer);
 		}
 
@@ -187,12 +189,36 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
+	public void SrvPlayerGetHit(GameObject player)
+	{
+		foreach (GameObject o in _playersLists)
+		{
+			if (o.GetComponent<NetworkIdentity>().netId == player.GetComponent<NetworkIdentity>().netId)
+			{
+				o.GetComponent<ServerCommunication>().RpcPlayerGetHit();
+				break;
+			}
+		}
+	}
+
+	[Server]
 	public void SrvPlayerDie(GameObject player)
 	{
 		Team teamPlayer = player.GetComponent<TeamManager>().getTeam();
 		_alivePlayers[(int)teamPlayer]--;
 		Debug.Log("player " + player.GetComponent<NetworkIdentity>().netId + " is dead");
-		
+
+		foreach (GameObject o in _playersLists)
+		{
+			if (o.GetComponent<NetworkIdentity>().netId == player.GetComponent<NetworkIdentity>().netId)
+			{
+				_teamLists[(int)teamPlayer].Remove(o);
+				_playersLists.Remove(o);
+				break;
+			}
+		}
+		player.GetComponent<ServerCommunication>().RpcPlayerDie();
+
 		if (_alivePlayers[(int)teamPlayer] == 0)
 		{
 			state = GameState.result;

@@ -55,8 +55,12 @@ public class Projectile : NetworkBehaviour
                     {
                         
                         if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
-                            col.GetComponent<Hit>().hit(gameObject);
-                    }
+						{
+							col.GetComponent<Hit>().hit(gameObject);
+							ClientScene.localPlayer.GetComponent<ServerCommunication>().CmdPlayerHit(col.gameObject);
+					}
+
+					}
                 Explode(transform.position);
             }
             

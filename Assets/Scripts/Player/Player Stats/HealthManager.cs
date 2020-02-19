@@ -5,29 +5,33 @@ using Mirror;
 
 public class HealthManager : NetworkBehaviour
 {
-    [SerializeField] private int m_maxHP = 5;
-	private int m_HP = 5;
+    [SerializeField] private int m_maxHP;
+	public int m_HP;
     public int HP {get => m_HP;}
 	public int MaxHP { get => m_maxHP; }
-    public void setMaxHP(int m)
+	// ATTENTION: cette fonction est supposé appelé qu'une fois
+	public void setMaxHP(int m)
     {
         m_maxHP = m;
-        HUDController.instance.SetMaxLife(m);
+		m_HP = m;
+		if (hasAuthority)
+			HUDController.instance.SetMaxLife(m);
     }
     public bool takeDamage()
     {
-        Debug.Log("OUCH MA MAN WTF !!");
         m_HP--;
-        if(hasAuthority)
-            HUDController.instance.UpdateLife(m_HP);
+		if (hasAuthority)
+		{
+			HUDController.instance.UpdateLife(m_HP);
+		}
+
 		return isDead();
     }
 
     public bool isDead()
     {
-		if (m_HP <= 0)
+		if (m_HP <= 0 && hasAuthority)
 		{
-			Debug.Log("Im dead");
 			PlayerDie();
 		}
         return m_HP <= 0;
