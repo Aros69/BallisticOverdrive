@@ -149,7 +149,6 @@ public class PlayerController : NetworkBehaviour
     void Tilt()
     {
         // m_Mesh.transform.RotateAround(m_Mesh.transform.position, axis, m_velocity.magnitude);
-        Debug.Log(m_velocity.magnitude);
         float forwardTilt = -Vector3.Dot(m_velocity, transform.forward);
         float sidewardTilt = Vector3.Dot(m_velocity, transform.right);
         m_Mesh.transform.localRotation = Quaternion.Euler(  forwardTilt*m_tiltStrenght, 

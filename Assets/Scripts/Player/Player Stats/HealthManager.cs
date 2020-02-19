@@ -27,6 +27,7 @@ public class HealthManager : NetworkBehaviour
     {
 		if (m_HP <= 0)
 		{
+			Debug.Log("Im dead");
 			PlayerDie();
 		}
         return m_HP <= 0;

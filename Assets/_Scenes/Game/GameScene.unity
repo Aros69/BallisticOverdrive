@@ -2578,8 +2578,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _alivePlayers: 
-  _playersLists: []
+  _AttackPlayer:
+    MaxLife: 3
+  _DefensePlayer:
+    MaxLife: 3
+  _maxPlayerTeam: 0
+  _maxPlayer: 0
 --- !u!114 &1540045666
 MonoBehaviour:
   m_ObjectHideFlags: 0
