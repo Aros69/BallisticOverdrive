@@ -235,15 +235,26 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void SrvPlayerLeave(GameObject player)
 	{
+		player.GetComponent<ServerCommunication>().RpcPlayerDie();
 		_playersLists.Remove(player);
+		Debug.Log("player leave, playlist " + _playersLists.Count);
+		// to continue game
+		//for (int i = 0; i < (int)Team.Nb - 1; i++)
+		//{
+		//	if (_teamLists[i].IndexOf(player) != -1)
+		//	{
+		//		_teamLists[i].Remove(player);
+		//		_alivePlayers[i]--;
+		//	}
+		//}
+
+		//reset to waiting when leave
 		for (int i = 0; i < (int)Team.Nb - 1; i++)
 		{
-			if (_teamLists[i].IndexOf(player) != -1)
-			{
-				_teamLists[i].Remove(player);
-				_alivePlayers[i]--;
-			}
+			_teamLists[i].Clear();
+			_alivePlayers[i] = -1;
 		}
+		state = GameState.waiting;
 	}
 
 	// TODO not done

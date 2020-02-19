@@ -194,7 +194,8 @@ public class HUDController : MonoBehaviour
     }
 
     public void LeaveGame(){
-        if(ODNetworkManager.singleton.mode == NetworkManagerMode.ClientOnly){
+		ClientScene.localPlayer.GetComponent<ServerCommunication>().CmdPlayerLeave();
+		if (ODNetworkManager.singleton.mode == NetworkManagerMode.ClientOnly){
             ODNetworkManager.singleton.StopClient();
         } else {
             ODNetworkManager.singleton.StopHost();
