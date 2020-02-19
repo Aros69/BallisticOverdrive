@@ -35,8 +35,8 @@ public class GameManager : NetworkBehaviour
 	private PlayerProfile _DefensePlayer;
 
 	private int[] _alivePlayers; // number of player alive seperate in team
-	private int _maxPlayerTeam; // max player by team (use only if team same size)
-	private int _maxPlayer;
+	[SerializeField] private int _maxPlayerTeam; // max player by team (use only if team same size)
+	[SerializeField] private int _maxPlayer;
 	private GameObject _resultScreen;
 
 	private List<GameObject> _playersLists;
