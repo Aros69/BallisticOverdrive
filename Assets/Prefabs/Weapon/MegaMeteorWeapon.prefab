@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3637548647647655132
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1867645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1811677
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3026603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521771034379125418, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616625558410074889, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_Name
+      value: MegaMeteorWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676032737692635863, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_projectile
+      value: 
+      objectReference: {fileID: 7702995386373516699, guid: c3e9b3686a10c744c9f0c9d6652d72f4,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d27cb2a24f1f2bd4993c72418e830b6e, type: 3}

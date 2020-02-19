@@ -16,6 +16,7 @@ public class HealthManager : NetworkBehaviour
     }
     public bool takeDamage()
     {
+        Debug.Log("OUCH MA MAN WTF !!");
         m_HP--;
         if(hasAuthority)
             HUDController.instance.UpdateLife(m_HP);

@@ -29,6 +29,9 @@ public class PlayerController : NetworkBehaviour
     [Header("The Camera the player looks through")]
     [SerializeField]
     public Camera m_Camera;
+    [Header("The 3D model of the player")]
+    [SerializeField]
+    public GameObject m_Mesh;
     [Header("Position of the camera when the player is standing")]
     [SerializeField]
     public Transform m_standingCameraPosition;
@@ -38,6 +41,8 @@ public class PlayerController : NetworkBehaviour
     [Header("Player Movement properties")]
     [SerializeField]
     private float m_speed = 5.0f;
+    [SerializeField]
+    private float m_tiltStrenght = 200.0f;
     [SerializeField]
     private float m_lookSensitivity = 3.0f;
     [SerializeField]
@@ -138,6 +143,20 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Tilt the player depending on the velocity
+    /// </summary>
+    void Tilt()
+    {
+        // m_Mesh.transform.RotateAround(m_Mesh.transform.position, axis, m_velocity.magnitude);
+        Debug.Log(m_velocity.magnitude);
+        float forwardTilt = -Vector3.Dot(m_velocity, transform.forward);
+        float sidewardTilt = Vector3.Dot(m_velocity, transform.right);
+        m_Mesh.transform.localRotation = Quaternion.Euler(  forwardTilt*m_tiltStrenght, 
+                                                            m_Mesh.transform.localRotation.eulerAngles.y,
+                                                            sidewardTilt*m_tiltStrenght);
+    }
+
     public void Update()
     {
         if(isLocalPlayer)
@@ -153,6 +172,7 @@ public class PlayerController : NetworkBehaviour
         if(isLocalPlayer)
         {
             ComputeMovements();
+            Tilt();
             m_rigidBody.AddForce(new Vector3(0, - m_bonusGravity, 0), ForceMode.Force);
             if(m_grounded)
                 m_velocity *= 1.0f/m_groundDrag;
