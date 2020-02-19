@@ -36,6 +36,7 @@ public class TeamManager: NetworkBehaviour
     /// <param name="t"></param>
     public void setTeam(Team t)
     {
+        Debug.Log("TeamSet");
         m_team = t;
 
         if(m_team == Team.Red){

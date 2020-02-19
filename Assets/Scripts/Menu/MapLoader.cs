@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public class MapLoader : MonoBehaviour
 {
@@ -9,11 +10,22 @@ public class MapLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadMap(m_mapToLoad);
+        StartCoroutine(LoadMap());
     }
     
-    void LoadMap(string name)
+    IEnumerator LoadMap()
     {
-        SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(m_mapToLoad, LoadSceneMode.Additive);
+
+        Debug.Log("Map Loaded!");
+    
+        ServerCommunication[] serverComs = GameObject.FindObjectsOfType<ServerCommunication>();
+        
+        foreach (ServerCommunication serverCom in serverComs)
+        {
+            if(serverCom.gameObject.GetComponent<NetworkIdentity>().hasAuthority){
+                serverCom.CmdAddPlayer();
+            }
+        }
     }
 }
