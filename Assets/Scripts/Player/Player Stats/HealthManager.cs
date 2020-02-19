@@ -12,8 +12,7 @@ public class HealthManager : NetworkBehaviour
     public void setMaxHP(int m)
     {
         m_maxHP = m;
-            HUDController.instance.SetMaxLife(m);
-
+        HUDController.instance.SetMaxLife(m);
     }
     public bool takeDamage()
     {
@@ -28,6 +27,7 @@ public class HealthManager : NetworkBehaviour
     {
 		if (m_HP <= 0)
 		{
+			Debug.Log("Im dead");
 			PlayerDie();
 		}
         return m_HP <= 0;
@@ -35,7 +35,10 @@ public class HealthManager : NetworkBehaviour
 
 	private void PlayerDie()
 	{
-		GetComponent<ServerCommunication>().CmdPlayerDie();
+		if (gameObject.GetComponent<NetworkIdentity>().isClient)
+		{
+			GetComponent<ServerCommunication>().CmdPlayerDie();
+		}
 	}
     void Update()
     {

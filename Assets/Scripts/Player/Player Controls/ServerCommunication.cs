@@ -37,16 +37,22 @@ public class ServerCommunication : NetworkBehaviour
 	{
 		player.GetComponent<PlayerController>().BlockMovement();
 		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.0f, 0));
+		HUDController.instance.SetMode(HUDMode.waitingForPlayer);
 	}
 
 	[ClientRpc]
-	public void RpcGameStart(Vector3 spawnPosition)
+	public void RpcGameStart(Vector3 spawnPosition, Team teamColor, PlayerProfile profile)
 	{
 		if (hasAuthority)
 		{
-			Debug.Log("I teleport the player to " + spawnPosition);
 			gameObject.GetComponent<PlayerController>().Teleport(spawnPosition);
+
+			// permet executer 1 fois
+			HUDController.instance.SetMode(HUDMode.playing);
 		}
+		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
+		gameObject.GetComponent<TeamManager>().setTeam(teamColor);
+
 		// unblock player function (TODO)
 	}
 

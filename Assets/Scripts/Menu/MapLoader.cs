@@ -15,7 +15,9 @@ public class MapLoader : MonoBehaviour
     
     IEnumerator LoadMap()
     {
+        HUDController.instance.BlackScreen(true);
         yield return SceneManager.LoadSceneAsync(m_mapToLoad, LoadSceneMode.Additive);
+        HUDController.instance.BlackScreen(false);
 
         Debug.Log("Map Loaded!");
     

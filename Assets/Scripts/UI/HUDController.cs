@@ -41,6 +41,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject blueTeamWinsText;
     [SerializeField] private GameObject redTeamWinsText;
     [SerializeField] private GameObject spectatingText;
+    [SerializeField] private GameObject blackScreen;
 
     [Header("EscapeMenu")]
     [SerializeField] private GameObject escapeMenu;
@@ -68,6 +69,10 @@ public class HUDController : MonoBehaviour
                 ShowMenu();
             }
         }
+    }
+
+    public void BlackScreen(bool active){
+        blackScreen.SetActive(active);
     }
 
     public void SetPlayerColor(Color color)
