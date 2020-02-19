@@ -11,6 +11,12 @@ public enum GameState
 	endgame,
 }
 
+public enum WeaponType
+{
+	simple,
+	spray
+}
+
 [System.Serializable]
 public struct PlayerProfile
 {
@@ -22,6 +28,7 @@ public struct PlayerProfile
 	//const float AirControl = 0.05f;
 	//const float BonusGravity = 2.0f;
 	public int MaxLife;
+	public WeaponType weaponType;
 }
 
 public class GameManager : NetworkBehaviour
