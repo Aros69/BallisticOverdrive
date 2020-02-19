@@ -36,7 +36,7 @@ public class ServerCommunication : NetworkBehaviour
 	public void TargetWaitingPlayer(NetworkConnection conn, GameObject player)
 	{
 		player.GetComponent<PlayerController>().BlockMovement();
-		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.0f, 0));
+		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.5f, 0));
 		HUDController.instance.SetMode(HUDMode.waitingForPlayer);
 	}
 
@@ -66,5 +66,20 @@ public class ServerCommunication : NetworkBehaviour
 			HUDController.instance.SetMode(HUDMode.redTeamVictory);
 		else
 			HUDController.instance.SetMode(HUDMode.blueTeamVictory);
+	}
+
+	[Command]
+	public void CmdPlayerHit(GameObject player)
+	{
+		Debug.Log("server: player got hit");
+		TargetPlayerHit(player.GetComponent<NetworkIdentity>().connectionToClient);
+	}
+
+	[TargetRpc]
+	public void TargetPlayerHit(NetworkConnection conn)
+	{
+		Debug.Log("target player hit");
+		if (hasAuthority)
+			GetComponent<HealthManager>().takeDamage();
 	}
 }

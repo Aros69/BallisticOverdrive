@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Hit_Player : Hit
 {
-    override public void hit(GameObject o)
+    override public void hit(GameObject projectile)
     {
-        Debug.Log("Player got hit !");
-        Vector3 f = o.GetComponent<Projectile>().getDirection() * o.GetComponent<Rigidbody>().mass;
-        GetComponent<Rigidbody>().AddForce(f);
+        Debug.Log("I hit someone !");
+        Vector3 f = projectile.GetComponent<Projectile>().getDirection() * projectile.GetComponent<Rigidbody>().mass;
+        //GetComponent<Rigidbody>().AddForce(f);
         GetComponent<PlayerSounds>().PlayOuchSound();
         if(GetComponent<HealthManager>().takeDamage())
             Destroy(gameObject);
+		GetComponent<ServerCommunication>().CmdPlayerHit(gameObject);
     }
 }
