@@ -33,32 +33,50 @@ public class Projectile : NetworkBehaviour
         m_rigidBody.MovePosition(m_rigidBody.position + getDirection() * m_speed * Time.fixedDeltaTime);
     }
 
-    public void SetOwner(GameObject o)
+	public void SetOwner(NetworkIdentity conn)
     {
-        m_owner = o;
-    }
+		Debug.Log("set owner");
+		if (ClientScene.localPlayer.GetComponent<NetworkIdentity>().netId == conn.netId 
+			&& m_owner.GetComponent<NetworkIdentity>().hasAuthority // implicite
+			&& !hasAuthority)
+		{
+			Debug.Log("no authority ask for");
+			CmdRequestAuthority(GetComponent<NetworkIdentity>());
+		}
+
+	}
     
     void Explode(Vector3 explosionPoint)
     {
         Instantiate(m_explosion, explosionPoint, transform.rotation);
-        Destroy(gameObject);
+		if (gameObject.transform.parent != null)
+
+			Destroy(gameObject.transform.parent);
+		else
+			Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if(hasAuthority)
-        {
+		//Debug.Log("collide");
+		if (hasAuthority)
+		{
+			//Debug.Log("has authority");
             if((col.gameObject.GetComponent<NetworkIdentity>() != null && !col.gameObject.GetComponent<NetworkIdentity>().hasAuthority)
             || col.gameObject.GetComponent<NetworkIdentity>() == null) // Only collide with others
             {
-                    if(col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
+				//Debug.Log("Bullet collide something");
+
+				if (col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
                     {
                         
                         if(!col.GetComponent<TeamManager>().isProjectile() && !col.GetComponent<TeamManager>().getTeam().Equals(GetComponent<TeamManager>().getTeam()))
 						{
+							//Debug.Log("Collide player");
+
 							col.GetComponent<Hit>().hit(gameObject);
 							ClientScene.localPlayer.GetComponent<ServerCommunication>().CmdPlayerHit(col.gameObject);
-					}
+						}
 
 					}
                 Explode(transform.position);
@@ -66,4 +84,11 @@ public class Projectile : NetworkBehaviour
             
         }
     }
+
+	[Command]
+	private void CmdRequestAuthority(NetworkIdentity otherId)
+	{
+		Debug.Log("Request authority");
+		otherId.AssignClientAuthority(base.connectionToClient);
+	}
 }

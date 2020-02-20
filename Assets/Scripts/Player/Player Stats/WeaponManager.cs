@@ -10,13 +10,15 @@ public class WeaponManager : MonoBehaviour
 	private GameObject _currentWeapon;
 	private GameObject[] _allweapons;
 
+	public GameObject WeaponSimple { get => m_weaponSimple; }
+
 	public void Start()
 	{
-		_currentWeapon = m_weaponSimple;
+		_currentWeapon = WeaponSimple;
 		GetComponent<ShootCommand>().setWeapon(_currentWeapon.GetComponent<Weapon>());
 		GetComponent<AmmoManager>().setWeapon(_currentWeapon.GetComponent<Weapon>());
 		
-		_allweapons = new GameObject[2] { m_weaponSimple, m_weaponSpray };
+		_allweapons = new GameObject[2] { WeaponSimple, m_weaponSpray };
 	}
 
 	public void SetWeapon(WeaponType weapon)
@@ -25,7 +27,7 @@ public class WeaponManager : MonoBehaviour
 		switch (weapon)
 		{
 			case WeaponType.simple:
-				_currentWeapon = m_weaponSimple;
+				_currentWeapon = WeaponSimple;
 				break;
 			case WeaponType.spray:
 				_currentWeapon = m_weaponSpray;

@@ -172,7 +172,6 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_attack_side][i].transform.position;
-			Debug.Log("teleport attack player to " + spawnPos);
 			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side, _AttackPlayer);
 
 			// Update player in server side

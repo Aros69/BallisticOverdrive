@@ -46,10 +46,6 @@ public class ServerCommunication : NetworkBehaviour
 
 			// permet executer 1 fois
 			HUDController.instance.SetMode(HUDMode.playing);
-			if (teamColor == Team.Red)
-				HUDController.instance.SetPlayerColor(Color.red);
-			else
-				HUDController.instance.SetPlayerColor(Color.blue);
 
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
