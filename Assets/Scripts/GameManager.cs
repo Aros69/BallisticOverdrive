@@ -56,7 +56,6 @@ public class GameManager : NetworkBehaviour
 
 	public int getTeamNB(Team id)
 	{
-		Debug.Log("getTeam " + _alivePlayers[(int)id]);
 		return _alivePlayers[(int)id];
 	}
 	
@@ -79,8 +78,8 @@ public class GameManager : NetworkBehaviour
 			{
 				_teamLists[i] = new List<GameObject>();
 			}
-			_maxPlayerTeam = 1;
-			_maxPlayer = 2;
+			_maxPlayerTeam = 2;
+			_maxPlayer = 3;
 			state = GameState.waiting;
 			timer = 0;
 		}
@@ -168,20 +167,44 @@ public class GameManager : NetworkBehaviour
 			else spawns[(int)_defense_side].Add(spawn);
 		}
 
+		GameObject[] srvPlayer = GameObject.FindGameObjectsWithTag("Player");
 		// AttackTeam
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_attack_side][i].transform.position;
 			Debug.Log("teleport attack player to " + spawnPos);
 			_teamLists[(int)_attack_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _attack_side, _AttackPlayer);
+
+			// Update player in server side
+			for (int j = 0; j < srvPlayer.Length; j++)
+			{
+				if (srvPlayer[j].GetComponent<NetworkIdentity>().netId == _teamLists[(int)_attack_side][i].GetComponent<NetworkIdentity>().netId)
+				{
+					srvPlayer[j].GetComponent<HealthManager>().setMaxHP(_AttackPlayer.MaxLife);
+					srvPlayer[j].GetComponent<WeaponManager>().SetWeapon(_AttackPlayer.weaponType);
+					srvPlayer[j].GetComponent<TeamManager>().setTeam(_attack_side);
+				}
+				
+			}
 		}
 
 		// DefenseTeam
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_defense_side][i].transform.position;
-			Debug.Log("teleport defense player to " + spawnPos);
 			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side, _DefensePlayer);
+
+			// Update player in server side
+			for (int j = 0; j < srvPlayer.Length; j++)
+			{
+				if (srvPlayer[j].GetComponent<NetworkIdentity>().netId == _teamLists[(int)_defense_side][i].GetComponent<NetworkIdentity>().netId)
+				{
+					srvPlayer[j].GetComponent<HealthManager>().setMaxHP(_DefensePlayer.MaxLife);
+					srvPlayer[j].GetComponent<WeaponManager>().SetWeapon(_DefensePlayer.weaponType);
+					srvPlayer[j].GetComponent<TeamManager>().setTeam(_defense_side);
+				}
+
+			}
 		}
 
 		Debug.Log("red player " + _alivePlayers[(int)Team.Red]);

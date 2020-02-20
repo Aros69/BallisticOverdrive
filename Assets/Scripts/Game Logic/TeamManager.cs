@@ -34,9 +34,8 @@ public class TeamManager: NetworkBehaviour
     /// Set the team of a gameObject
     /// </summary>
     /// <param name="t"></param>
-    public void setTeam(Team t)
+    public virtual void setTeam(Team t)
     {
-        Debug.Log("TeamSet");
         m_team = t;
 
         if(m_team == Team.Red){

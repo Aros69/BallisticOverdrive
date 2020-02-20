@@ -5,15 +5,6 @@ using Mirror;
 
 public class ServerCommunication : NetworkBehaviour
 {
-	private void Start()
-	{
-		//if (isClient)
-		//{
-		//	CmdAddPlayer();
-		//}
-	}
-
-
 	[Command]
 	public void CmdAddPlayer()
 	{
@@ -58,13 +49,11 @@ public class ServerCommunication : NetworkBehaviour
 			if (teamColor == Team.Red)
 				HUDController.instance.SetPlayerColor(Color.red);
 			else
-				HUDController.instance.SetPlayerColor(Color.red);
+				HUDController.instance.SetPlayerColor(Color.blue);
 
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
-		
-		//TODO : Set player weapon to the right weapon depending on profile.weaponType
-
+		gameObject.GetComponent<WeaponManager>().SetWeapon(profile.weaponType);
 		gameObject.GetComponent<TeamManager>().setTeam(teamColor);
 
 		// unblock player function (TODO)

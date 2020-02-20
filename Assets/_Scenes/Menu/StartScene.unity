@@ -1094,9 +1094,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
         type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
+        type: 3}
       propertyPath: onlineScene
       value: GameScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
+        type: 3}
+      propertyPath: spawnPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7702995386373516699, guid: c3e9b3686a10c744c9f0c9d6652d72f4,
+        type: 3}
     - target: {fileID: 5725616355854681223, guid: 1742fa452f56bcf458a57fd8b35711ac,
         type: 3}
       propertyPath: m_Name

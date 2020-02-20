@@ -160,7 +160,6 @@ public class HUDController : MonoBehaviour
 
     public void UpdateAmmo(float ammo)
     {
-        //Debug.Log(ammo);
         int ammoCount = (int)ammo;
         ammo = ammo - ammoCount;
         for (int i = 0; i < ammoCount; i++)
@@ -203,7 +202,8 @@ public class HUDController : MonoBehaviour
     }
 
     public void Quit(){
-        Application.Quit();
+		ClientScene.localPlayer.GetComponent<ServerCommunication>().CmdPlayerLeave();
+		Application.Quit();
     }
 
     public void SetMode(HUDMode newMode)
