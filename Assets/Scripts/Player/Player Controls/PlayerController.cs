@@ -112,7 +112,7 @@ public class PlayerController : NetworkBehaviour
         Vector3 kinecticForce = (m_moveHorizontal + m_moveVertical)* m_speed;
         if(!m_grounded)
             kinecticForce *= m_airControl;
-        m_velocity += kinecticForce;
+        m_velocity += kinecticForce * Time.fixedDeltaTime;
 
 
         //Compute camera rotation
