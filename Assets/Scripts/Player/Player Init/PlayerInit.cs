@@ -21,7 +21,5 @@ public class PlayerInit : NetworkBehaviour
             GetComponent<CharacterController>().enabled = false;
             GetComponent<Rigidbody>().useGravity = false;
         }
-    }   
-
-   
+    }
 }
