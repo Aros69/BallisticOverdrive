@@ -44,11 +44,13 @@ public class TeamManager: NetworkBehaviour
                 m_blueVisual.SetActive(false);
                 m_redVisual.SetActive(true);
             }
+            HUDController.instance.SetPlayerColor(Color.red);
         } else {
             if(m_redVisual != null){
                 m_redVisual.SetActive(false);
                 m_blueVisual.SetActive(true);
             }
+            HUDController.instance.SetPlayerColor(Color.blue);
         }
     }
 
