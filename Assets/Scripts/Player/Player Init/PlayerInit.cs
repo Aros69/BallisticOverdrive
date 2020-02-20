@@ -14,10 +14,13 @@ public class PlayerInit : NetworkBehaviour
             //Disable the objects storing the red/blue meshes because m_Mesh is used to compute the tilt from the movements)
             foreach(Transform child in m_Mesh.transform)
                 child.gameObject.SetActive(false);
-            
         }
         else
+        {
             m_camera.SetActive(false);
+            GetComponent<CharacterController>().enabled = false;
+            GetComponent<Rigidbody>().useGravity = false;
+        }
     }   
 
    
