@@ -18,7 +18,7 @@ public class PlayerInit : NetworkBehaviour
         else
         {
             m_camera.SetActive(false);
-            GetComponent<CharacterController>().enabled = false;
+            GetComponent<PlayerController>().enabled = false;
             GetComponent<Rigidbody>().useGravity = false;
         }
     }
