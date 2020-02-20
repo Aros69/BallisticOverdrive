@@ -295,75 +295,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1001 &27675891
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1616244286472476070, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioSpectrum
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.02710019
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.7299708
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.02966109
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616244286472476075, guid: c770f43c9280ca84bbef26f3eddd9c47,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c770f43c9280ca84bbef26f3eddd9c47, type: 3}
 --- !u!1 &52054615
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &84158027
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +704,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75468
+  m_Name: pb_Mesh87682
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -956,7 +887,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75354
+  m_Name: pb_Mesh87568
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2217,14 +2148,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &250219894
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75296
+  m_Name: pb_Mesh87510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2885,7 +2816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &335025246
 Mesh:
   m_ObjectHideFlags: 0
@@ -3384,7 +3315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &401172345
 Mesh:
   m_ObjectHideFlags: 0
@@ -4628,7 +4559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &478538024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5423,7 +5354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &509375423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6387,7 +6318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &539653493
 Mesh:
   m_ObjectHideFlags: 0
@@ -8372,7 +8303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &867192281
 Mesh:
   m_ObjectHideFlags: 0
@@ -8942,7 +8873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &999779418
 Mesh:
   m_ObjectHideFlags: 0
@@ -9469,7 +9400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &1120754917
 Mesh:
   m_ObjectHideFlags: 0
@@ -11173,7 +11104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1245828676
 GameObject:
   m_ObjectHideFlags: 0
@@ -11890,7 +11821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &1320295811
 Mesh:
   m_ObjectHideFlags: 0
@@ -13113,7 +13044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1336794410
 GameObject:
   m_ObjectHideFlags: 0
@@ -14758,7 +14689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1418760724
 GameObject:
   m_ObjectHideFlags: 0
@@ -15714,7 +15645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1482620583
 GameObject:
   m_ObjectHideFlags: 0
@@ -16049,7 +15980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!114 &1482620590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16392,7 +16323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &1590600249
 Mesh:
   m_ObjectHideFlags: 0
@@ -17340,7 +17271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1609712878
 GameObject:
   m_ObjectHideFlags: 0
@@ -18304,7 +18235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1673937129
 GameObject:
   m_ObjectHideFlags: 0
@@ -18789,7 +18720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &1684665124
 GameObject:
   m_ObjectHideFlags: 0
@@ -21785,7 +21716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1001 &1736234554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23752,7 +23683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!43 &2056682108
 Mesh:
   m_ObjectHideFlags: 0
@@ -24248,7 +24179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1 &2138841437
 GameObject:
   m_ObjectHideFlags: 0
@@ -24981,7 +24912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_parameter: 5
   m_frequencyBand: 0
-  m_scaleFrequencyBand: 5
+  m_scaleFrequencyBand: 4
 --- !u!1001 &2147240555
 PrefabInstance:
   m_ObjectHideFlags: 0
