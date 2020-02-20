@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AttackSpawn
   - DefenseSpawn
+  - AudioSpectrum
   layers:
   - Default
   - TransparentFX
