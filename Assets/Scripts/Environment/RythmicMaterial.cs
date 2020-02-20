@@ -32,7 +32,6 @@ public class RythmicMaterial : MonoBehaviour
     void Update()
     {
         float f = m_audioSpectrum.GetBandWidthValue(m_frequencyBand) * m_scaleFrequencyBand;
-        Debug.Log("Here" + f);
         switch (m_parameter)
         {
             case Parameter.EmissionIntensity:
