@@ -5,15 +5,6 @@ using Mirror;
 
 public class ServerCommunication : NetworkBehaviour
 {
-	private void Start()
-	{
-		//if (isClient)
-		//{
-		//	CmdAddPlayer();
-		//}
-	}
-
-
 	[Command]
 	public void CmdAddPlayer()
 	{
@@ -26,6 +17,12 @@ public class ServerCommunication : NetworkBehaviour
 		GameManager.Instance.SrvPlayerDie(gameObject);
 	}
 
+	[ClientRpc]
+	public void RpcPlayerDie()
+	{
+		Destroy(gameObject);
+	}
+
 	[Command]
 	public void CmdPlayerLeave()
 	{
@@ -36,7 +33,7 @@ public class ServerCommunication : NetworkBehaviour
 	public void TargetWaitingPlayer(NetworkConnection conn, GameObject player)
 	{
 		player.GetComponent<PlayerController>().BlockMovement();
-		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.0f, 0));
+		player.GetComponent<PlayerController>().Teleport(new Vector3(0, 2.5f, 0));
 		HUDController.instance.SetMode(HUDMode.waitingForPlayer);
 	}
 
@@ -49,11 +46,10 @@ public class ServerCommunication : NetworkBehaviour
 
 			// permet executer 1 fois
 			HUDController.instance.SetMode(HUDMode.playing);
+
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
-		
-		//TODO : Set player weapon to the right weapon depending on profile.weaponType
-
+		gameObject.GetComponent<WeaponManager>().SetWeapon(profile.weaponType);
 		gameObject.GetComponent<TeamManager>().setTeam(teamColor);
 
 		// unblock player function (TODO)
@@ -66,5 +62,18 @@ public class ServerCommunication : NetworkBehaviour
 			HUDController.instance.SetMode(HUDMode.redTeamVictory);
 		else
 			HUDController.instance.SetMode(HUDMode.blueTeamVictory);
+	}
+
+	[Command]
+	public void CmdPlayerHit(GameObject player)
+	{
+		GameManager.Instance.SrvPlayerGetHit(player);
+
+	}
+
+	[ClientRpc]
+	public void RpcPlayerGetHit()
+	{
+		GetComponent<HealthManager>().takeDamage();
 	}
 }
