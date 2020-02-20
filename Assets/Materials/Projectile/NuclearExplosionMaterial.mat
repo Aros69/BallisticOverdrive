@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ExplosionMaterial
+  m_Name: NuclearExplosionMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 272c6f59080029c4bbdd13529871d0af,
     type: 3}
   m_ShaderKeywords: 
