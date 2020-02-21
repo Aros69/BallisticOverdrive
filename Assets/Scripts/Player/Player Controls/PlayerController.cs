@@ -44,6 +44,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField]
     private float m_tiltStrenght = 200.0f;
     [SerializeField]
+    private float maxTilt = 30.0f;
+    [SerializeField]
     private float m_lookSensitivity = 3.0f;
     [SerializeField]
     private float m_viewRange = 60.0f;
@@ -67,7 +69,6 @@ public class PlayerController : NetworkBehaviour
 
 	}
 	
-
     public void BlockMovement()
     {
         // m_rigidBody.useGravity = false;
@@ -154,6 +155,8 @@ public class PlayerController : NetworkBehaviour
         // m_Mesh.transform.RotateAround(m_Mesh.transform.position, axis, m_velocity.magnitude);
         float forwardTilt = -Vector3.Dot(m_velocity, transform.forward);
         float sidewardTilt = Vector3.Dot(m_velocity, transform.right);
+        forwardTilt = Mathf.Clamp(forwardTilt, -maxTilt, maxTilt);
+        sidewardTilt = Mathf.Clamp(sidewardTilt, -maxTilt, maxTilt);
         m_Mesh.transform.localRotation = Quaternion.Euler(  forwardTilt*m_tiltStrenght, 
                                                             m_Mesh.transform.localRotation.eulerAngles.y,
                                                             sidewardTilt*m_tiltStrenght);
