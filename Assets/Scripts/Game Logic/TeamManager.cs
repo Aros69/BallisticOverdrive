@@ -39,13 +39,13 @@ public class TeamManager: NetworkBehaviour
         m_team = t;
 
         if(m_team == Team.Red){
-            if(m_blueVisual != null){
+            if(m_blueVisual != null && !isLocalPlayer){
                 m_blueVisual.SetActive(false);
                 m_redVisual.SetActive(true);
             }
 			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.red);
         } else {
-            if(m_redVisual != null){
+            if(m_redVisual != null && !isLocalPlayer){
                 m_redVisual.SetActive(false);
                 m_blueVisual.SetActive(true);
             }
