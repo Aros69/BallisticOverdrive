@@ -148,6 +148,14 @@ public class HUDController : MonoBehaviour
 
         maxAmmoBarSize = (ammoBarContainer.rect.width - maxAmmo * (barSpacing + 1)) / maxAmmo;
 
+		if (ammoBars != null)
+		{
+			for(int i = 0; i < ammoBars.Length; i++)
+			{
+				Destroy(ammoBars[i]);
+			}
+		}
+
         ammoBars = new GameObject[maxAmmo];
         for (int i = 0; i < maxAmmo; i++)
         {
@@ -176,7 +184,7 @@ public class HUDController : MonoBehaviour
 
         for (int i = ammoCount+1; i < ammoBars.Length; i++)
         {
-            ammoBars[i].SetActive(false);
+			ammoBars[i].SetActive(false);
         }
     }
 
