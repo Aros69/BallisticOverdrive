@@ -19100,7 +19100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4487122120609617462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.798}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053882671566562645}
@@ -19191,8 +19191,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   m_speed: 20
-  m_explosion: {fileID: 6043692058122565012, guid: f72e5de1a4e2c1644afab22a107b0610,
+  m_explosion: {fileID: 7007910551062302497, guid: 5fdb3235bde17e24e84dabb716774b48,
     type: 3}
+  m_explosionPoint: {fileID: 4208125595455222725}
 --- !u!114 &4135629060509680131
 MonoBehaviour:
   m_ObjectHideFlags: 0
