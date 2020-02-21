@@ -64,15 +64,14 @@ public class PlayerController : NetworkBehaviour
 	private void Start()
 	{
         m_rigidBody = GetComponent<Rigidbody>();
-        // If the player is not local disable the rigidbody (To prevent gravity being applied two times)
-        if(!isLocalPlayer)
-            BlockMovement();
+
 	}
 	
 
     public void BlockMovement()
     {
-        // m_rigidBody.isKinematic = true;
+        // m_rigidBody.useGravity = false;
+        // enabled = false;
     }
     public void Teleport(Vector3 v)
     {
@@ -126,7 +125,8 @@ public class PlayerController : NetworkBehaviour
         if(Input.GetButtonDown("Jump") && m_grounded)
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
-            m_rigidBody.AddForce(Vector3.up * m_jumpforce);
+            // m_rigidBody.AddForce(Vector3.up * m_jumpforce);
+            m_velocity += Vector3.up * m_jumpforce;
 		}
 	}
 
@@ -174,7 +174,6 @@ public class PlayerController : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
-            // ComputeMovements();
             Jump();
             Crouch();
         }
@@ -186,14 +185,15 @@ public class PlayerController : NetworkBehaviour
         {
             ComputeMovements();
             Tilt();
-            m_rigidBody.AddForce(new Vector3(0, - m_bonusGravity, 0), ForceMode.Force);
+            m_velocity += new Vector3(0, - m_bonusGravity - 9.8f, 0) * Time.fixedDeltaTime;
+            m_rigidBody.velocity = m_velocity;
+            Debug.Log(m_velocity);
+            m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
+
             if(m_grounded)
                 m_velocity *= 1.0f/m_groundDrag;
             else
                 m_velocity *= 1.0f/m_airDrag;
-            
-            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
-            m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
             m_Camera.transform.Rotate(-m_cameraRotation);
             CorrectCameraRotation();
         }
