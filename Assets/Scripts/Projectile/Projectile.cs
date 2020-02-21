@@ -10,6 +10,7 @@ public class Projectile : NetworkBehaviour
     [SerializeField] private float m_speed = 20.0f;
 
     [SerializeField] GameObject m_explosion = null;
+    [SerializeField] Transform m_explosionPoint = null;
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
@@ -79,7 +80,13 @@ public class Projectile : NetworkBehaviour
 						}
 
 					}
-                Explode(transform.position);
+                if (m_explosionPoint == null)
+                {
+                    Explode(transform.position);
+                } else
+                {
+                    Explode(m_explosionPoint.position);
+                }
             }
             
         }
