@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
         }
 
         if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
-            HUDController.instance.UpdateAmmo(m_ammo);
+			HUDController.instance.UpdateAmmo(m_ammo);
         }
     }
     
@@ -73,12 +73,13 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
-            HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
-        }
-    }
+		if (m_player.GetComponent<NetworkIdentity>().hasAuthority)
+		{
+			HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
+		}
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     { }  
 }
