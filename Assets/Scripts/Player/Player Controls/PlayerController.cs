@@ -67,7 +67,6 @@ public class PlayerController : NetworkBehaviour
 
 	}
 	
-
     public void BlockMovement()
     {
         // m_rigidBody.useGravity = false;

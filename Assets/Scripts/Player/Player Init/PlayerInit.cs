@@ -19,7 +19,7 @@ public class PlayerInit : NetworkBehaviour
         {
             m_camera.SetActive(false);
             GetComponent<PlayerController>().enabled = false;
-            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
