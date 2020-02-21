@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     // return false if unable to shoot
     public bool Shoot()
     {
-        Debug.Log(m_ammo);
+        //Debug.Log(m_ammo);
         if (m_ammo < 1.0f)
             return false;
         else

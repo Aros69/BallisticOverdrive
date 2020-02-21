@@ -34,9 +34,8 @@ public class TeamManager: NetworkBehaviour
     /// Set the team of a gameObject
     /// </summary>
     /// <param name="t"></param>
-    public void setTeam(Team t)
+    public virtual void setTeam(Team t)
     {
-        Debug.Log("TeamSet");
         m_team = t;
 
         if(m_team == Team.Red){
@@ -44,11 +43,13 @@ public class TeamManager: NetworkBehaviour
                 m_blueVisual.SetActive(false);
                 m_redVisual.SetActive(true);
             }
+			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.red);
         } else {
             if(m_redVisual != null){
                 m_redVisual.SetActive(false);
                 m_blueVisual.SetActive(true);
             }
+			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.blue);
         }
     }
 

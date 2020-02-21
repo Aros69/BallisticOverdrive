@@ -19,6 +19,9 @@ public class AudioSpectrum : MonoBehaviour
     /// m_bands[7] corresponds to the highest notes
     /// </summary>
     [SerializeField] private float[] m_bands = new float[8];
+    [SerializeField] private float[] m_bandsBuffer = new float[8];
+    [SerializeField] private float[] m_bandsDecrease = new float[8];
+
     [SerializeField] private int m_sampleNumber = 512;
     
     private List<GameObject> cubeSamples;
@@ -36,6 +39,7 @@ public class AudioSpectrum : MonoBehaviour
     {
         GetSpectrumAudioSource();
         ComputeBandwiths();
+        ComputeBuffer();
     }
 
     void GetSpectrumAudioSource()
@@ -61,16 +65,35 @@ public class AudioSpectrum : MonoBehaviour
         }
     }
 
+    void ComputeBuffer()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(m_bands[i] > m_bandsBuffer[i])
+            {
+                m_bandsBuffer[i] = m_bands[i];
+                m_bandsDecrease[i] = 0.005f;
+            }
+            if(m_bands[i] < m_bandsBuffer[i])
+            {
+                m_bandsBuffer[i] -= m_bandsDecrease[i];
+                m_bandsDecrease[i] *= 1.2f;
+            }
+        }
+    }
+
     public float GetBandWidthValue(int i)
     {
         if(i >= 8)
             throw new Exception("BandWidth out of range, are you sure it's below 8 ?");
-        return m_bands[i];
+        return m_bandsBuffer[i];
     }
+
     public float GetSubBass()
     {
         return GetBandWidthValue(0);
     }
+    
     public float GetBass()
     {
         return GetBandWidthValue(1);

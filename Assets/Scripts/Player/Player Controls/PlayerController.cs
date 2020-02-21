@@ -46,6 +46,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField]
     private float m_lookSensitivity = 3.0f;
     [SerializeField]
+    private float m_viewRange = 60.0f;
+    [SerializeField]
     private float m_jumpforce = 300.0f;
 
     [SerializeField]
@@ -62,15 +64,14 @@ public class PlayerController : NetworkBehaviour
 	private void Start()
 	{
         m_rigidBody = GetComponent<Rigidbody>();
-        // If the player is not local disable the rigidbody (To prevent gravity being applied two times)
-        if(!isLocalPlayer)
-            BlockMovement();
+
 	}
 	
 
     public void BlockMovement()
     {
-        // m_rigidBody.isKinematic = true;
+        // m_rigidBody.useGravity = false;
+        // enabled = false;
     }
     public void Teleport(Vector3 v)
     {
@@ -113,6 +114,7 @@ public class PlayerController : NetworkBehaviour
             kinecticForce *= m_airControl;
         m_velocity += kinecticForce * Time.fixedDeltaTime;
 
+
         //Compute camera rotation
         m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
         m_cameraRotation = new Vector3(m_xRot, 0, 0) * m_lookSensitivity;
@@ -123,7 +125,8 @@ public class PlayerController : NetworkBehaviour
         if(Input.GetButtonDown("Jump") && m_grounded)
         {
             GetComponent<PlayerSounds>().PlayJumpSound();
-            m_rigidBody.AddForce(Vector3.up * m_jumpforce);
+            // m_rigidBody.AddForce(Vector3.up * m_jumpforce);
+            m_velocity += Vector3.up * m_jumpforce;
 		}
 	}
 
@@ -155,12 +158,22 @@ public class PlayerController : NetworkBehaviour
                                                             m_Mesh.transform.localRotation.eulerAngles.y,
                                                             sidewardTilt*m_tiltStrenght);
     }
+    
+    /// <summary>
+    /// Correct Camera rotations
+    /// </summary>
+    void CorrectCameraRotation()
+    {
+        float angle = m_Camera.transform.localEulerAngles.x;
+        angle = (angle > 180) ? angle - 360 : angle;
 
+        m_Camera.transform.eulerAngles = new Vector3( Mathf.Clamp( angle,
+             -m_viewRange, m_viewRange), m_Camera.transform.eulerAngles.y, m_Camera.transform.eulerAngles.z);
+    }
     public void Update()
     {
         if(isLocalPlayer)
         {
-            // ComputeMovements();
             Jump();
             Crouch();
         }
@@ -172,15 +185,17 @@ public class PlayerController : NetworkBehaviour
         {
             ComputeMovements();
             Tilt();
-            m_rigidBody.AddForce(new Vector3(0, - m_bonusGravity, 0), ForceMode.Force);
+            m_velocity += new Vector3(0, - m_bonusGravity - 9.8f, 0) * Time.fixedDeltaTime;
+            m_rigidBody.velocity = m_velocity;
+            Debug.Log(m_velocity);
+            m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
+
             if(m_grounded)
                 m_velocity *= 1.0f/m_groundDrag;
             else
                 m_velocity *= 1.0f/m_airDrag;
-            
-            m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
-            m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
             m_Camera.transform.Rotate(-m_cameraRotation);
+            CorrectCameraRotation();
         }
     }
 }

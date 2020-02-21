@@ -670,6 +670,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMusic
       objectReference: {fileID: 0}
+    - target: {fileID: 1503484875848015821, guid: e542a9f12b2838d449ecd771a8021d5a,
+        type: 3}
+      propertyPath: m_gameMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: a651983a22b5d614b9875ae50f4c4834, type: 3}
     - target: {fileID: 1503484875848015823, guid: e542a9f12b2838d449ecd771a8021d5a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1263,9 +1268,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
         type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
+        type: 3}
       propertyPath: onlineScene
       value: GameScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5725616355854681220, guid: 1742fa452f56bcf458a57fd8b35711ac,
+        type: 3}
+      propertyPath: spawnPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7702995386373516699, guid: c3e9b3686a10c744c9f0c9d6652d72f4,
+        type: 3}
     - target: {fileID: 5725616355854681223, guid: 1742fa452f56bcf458a57fd8b35711ac,
         type: 3}
       propertyPath: m_Name
