@@ -51,6 +51,11 @@ public class TeamManager: NetworkBehaviour
             }
 			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.blue);
         }
+
+        /*if(GetComponent<Projectile>() != null)
+        {
+            GetComponent<Projectile>().team = t;
+        }*/
     }
 
     /// <Summary>
@@ -71,13 +76,13 @@ public class TeamManager: NetworkBehaviour
     {
         if(!m_redTeamFull)
         {
-            m_team = Team.Red;
+            setTeam(Team.Blue);
             m_redTeamFull = true;
             GetComponent<HealthManager>().setMaxHP(GameSettings.redTeamHealth);
         }
         else
         {
-            m_team = Team.Blue;
+            setTeam(Team.Red);
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
@@ -86,6 +91,9 @@ public class TeamManager: NetworkBehaviour
 
     void Start()
     {
-        m_team = Team.Black;
+        if (m_team == null)
+        {
+            m_team = Team.Black;
+        }
     }
 }

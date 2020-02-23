@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_menuMusic: {fileID: 8300000, guid: a651983a22b5d614b9875ae50f4c4834, type: 3}
-  m_gameMusic: {fileID: 8300000, guid: 4b2c1fc6324d7504f88ab2f0977d2508, type: 3}
+  m_gameMusic: {fileID: 8300000, guid: 8a1dfbc1a37bc964ebe2d32b11d96f31, type: 3}
 --- !u!114 &4279501692963413781
 MonoBehaviour:
   m_ObjectHideFlags: 0
