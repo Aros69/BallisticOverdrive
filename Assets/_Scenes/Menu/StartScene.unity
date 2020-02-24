@@ -5554,12 +5554,12 @@ GameObject:
   - component: {fileID: 1357978243}
   - component: {fileID: 1357978242}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: _Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1357978241
 Transform:
   m_ObjectHideFlags: 0
@@ -10365,12 +10365,12 @@ GameObject:
   - component: {fileID: 1376041856}
   - component: {fileID: 1376041855}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: _Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1376041854
 Transform:
   m_ObjectHideFlags: 0
