@@ -96,7 +96,6 @@ public class HUDController : MonoBehaviour
     public IEnumerator UpdateTimeLeft()
     {
         float startTime = Time.time;
-        Debug.Log(Time.time - startTime < maxTime);
         while(Time.time - startTime < maxTime){
             int minutes = (int)(maxTime - Time.time + startTime) / 60;
             int seconds = (int)(maxTime - Time.time + startTime) % 60;

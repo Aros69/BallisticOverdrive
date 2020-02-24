@@ -56,12 +56,13 @@ public class ServerCommunication : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	public void RpcGameStart(Vector3 spawnPosition, Team teamColor, PlayerProfile profile)
+	public void RpcGameStart(Vector3 spawnPosition, Team teamColor, PlayerProfile profile, Quaternion spawnRotation)
 	{
 
 		if (hasAuthority)
 		{
 			gameObject.GetComponent<PlayerController>().Teleport(spawnPosition);
+			gameObject.transform.rotation = spawnRotation;
 
 			// permet executer 1 fois
 			HUDController.instance.SetMode(HUDMode.playing);
