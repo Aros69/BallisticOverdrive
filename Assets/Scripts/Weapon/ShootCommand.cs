@@ -43,7 +43,7 @@ public class ShootCommand : NetworkBehaviour
 			GameObject megaBullet = m_weapon.projectile;
 			for (int i = 0; i < megaBullet.transform.childCount; i++)
 			{
-				Vector3 pos = m_weapon.shootSpawn.position + megaBullet.transform.GetChild(i).localPosition;
+				Vector3 pos = m_weapon.shootSpawn.position - megaBullet.transform.GetChild(i).localPosition;
 				Quaternion rot = Quaternion.LookRotation(shotDirection, m_weapon.shootSpawn.up) * megaBullet.transform.GetChild(i).localRotation;
 				CmdShoot(pos, rot);
 			}

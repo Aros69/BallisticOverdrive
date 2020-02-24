@@ -117,7 +117,7 @@ public class Projectile : NetworkBehaviour
     [Command]
     public void CmdExplodeToOther(Vector3 explosionPosition)
     {
-        Debug.Log("On lance la commande d'explosion pour les autres clients.");
+        //Debug.Log("On lance la commande d'explosion pour les autres clients.");
         Explode(explosionPosition);
         RpcExplode(explosionPosition);
     }
@@ -125,14 +125,14 @@ public class Projectile : NetworkBehaviour
     [ClientRpc]
     public void RpcExplode(Vector3 explosionPosition)
     {
-        Debug.Log("On fait exploser la bullet chez les autres clients.");
+        //Debug.Log("On fait exploser la bullet chez les autres clients.");
         Explode(explosionPosition);
     }
 
     [Command]
 	private void CmdRequestAuthority(NetworkIdentity otherId)
 	{
-		Debug.Log("Request authority");
+		//Debug.Log("Request authority");
 		otherId.AssignClientAuthority(base.connectionToClient);
 	}
 }
