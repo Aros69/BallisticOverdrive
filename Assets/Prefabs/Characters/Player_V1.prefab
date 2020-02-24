@@ -777,6 +777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  ghostPrefab: {fileID: 8655441743217681165, guid: e6c425c88ee079a4dbed8fc1f2a81805,
+    type: 3}
 --- !u!114 &2397170894144280176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,10 +820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630835cc0818c8841909645e00021f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   m_Camera: {fileID: 5571851126452177022}
   m_speed: 5
+  m_airdrag: 1.2
   m_lookSensitivity: 3
   m_viewRange: 60
 --- !u!1 &8838947954857745364

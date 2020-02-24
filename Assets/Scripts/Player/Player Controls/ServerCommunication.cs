@@ -5,6 +5,7 @@ using Mirror;
 
 public class ServerCommunication : NetworkBehaviour
 {
+	[SerializeField] private GameObject ghostPrefab = null;
 	private IEnumerator ShowResultScreen(float time, Team winner)
 	{
 		yield return new WaitForSeconds(time);
@@ -35,10 +36,9 @@ public class ServerCommunication : NetworkBehaviour
 		}
 
 		// player ghost mode
-		//gameObject.GetComponent<PlayerController>().enabled = false;
-		//gameObject.GetComponent<PlayerGhostController>().enabled = true;
-		//gameObject.GetComponent<PlayerGhostController>().Ghostify();
-		//Destroy(gameObject);
+		gameObject.GetComponent<PlayerController>().enabled = false;
+		gameObject.GetComponent<PlayerInit>().CmdDollify();
+		Instantiate(ghostPrefab, transform.position, transform.rotation);
 	}
 
 	[Command]

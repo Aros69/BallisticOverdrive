@@ -33,8 +33,7 @@ public class PlayerInit : NetworkBehaviour
         GetComponent<NetworkTransform>().enabled = false;
     }
 
-    [ClientRpc]
-    void RpcDollify(Vector3 v)
+    void Dollify(Vector3 v)
     {
         DisableControls();
         CutNetworkTransform();
@@ -43,16 +42,21 @@ public class PlayerInit : NetworkBehaviour
         r.isKinematic = false;
         r.freezeRotation = false;
     }
+    [ClientRpc]
+    void RpcDollify(Vector3 v)
+    {
+        Dollify(v);
+    }
 
     [Command]
-    void CmdDollify(Vector3 v)
+    public void CmdDollify()
     {
-        RpcDollify(v);
+        RpcDollify(GetComponent<Rigidbody>().velocity);
     }
     //TODO REMOVE
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.N) && isLocalPlayer)
-            CmdDollify(GetComponent<Rigidbody>().velocity);
+            CmdDollify();
     }
 }
