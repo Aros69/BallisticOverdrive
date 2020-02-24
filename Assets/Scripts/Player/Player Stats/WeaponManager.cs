@@ -5,10 +5,10 @@ using Mirror;
 
 public class WeaponManager : MonoBehaviour
 {
-	[SerializeField] private GameObject m_weaponSimple;
-	[SerializeField] private GameObject m_weaponSpray;
-	private GameObject m_currentWeapon;
-	private GameObject[] _allweapons;
+	[SerializeField] private GameObject m_weaponSimple  = null;
+	[SerializeField] private GameObject m_weaponSpray   = null;
+	private GameObject m_currentWeapon                  = null;
+	private GameObject[] _allweapons                    = null;
 
 	public GameObject WeaponSimple { get => m_weaponSimple; }
 
