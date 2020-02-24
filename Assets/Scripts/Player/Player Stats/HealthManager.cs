@@ -22,6 +22,7 @@ public class HealthManager : NetworkBehaviour
         m_HP--;
 		if (hasAuthority)
 		{
+			Debug.Log("no authority");
 			HUDController.instance.UpdateLife(m_HP);
 		}
 

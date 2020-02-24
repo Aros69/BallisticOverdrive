@@ -5,6 +5,15 @@ using Mirror;
 
 public class ServerCommunication : NetworkBehaviour
 {
+	private IEnumerator ShowResultScreen(float time, Team winner)
+	{
+		yield return new WaitForSeconds(time);
+		if (winner == Team.Red)
+			HUDController.instance.SetMode(HUDMode.redTeamVictory);
+		else
+			HUDController.instance.SetMode(HUDMode.blueTeamVictory);
+	}
+
 	[Command]
 	public void CmdAddPlayer()
 	{
@@ -20,7 +29,11 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcPlayerDie()
 	{
-		Destroy(gameObject);
+		// player ghost mode
+		//gameObject.GetComponent<PlayerController>().enabled = false;
+		//gameObject.GetComponent<PlayerGhostController>().enabled = true;
+		//gameObject.GetComponent<PlayerGhostController>().Ghostify();
+		//Destroy(gameObject);
 	}
 
 	[Command]
@@ -58,10 +71,11 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcSetWinner(Team winner)
 	{
-		if (winner == Team.Red)
-			HUDController.instance.SetMode(HUDMode.redTeamVictory);
-		else
-			HUDController.instance.SetMode(HUDMode.blueTeamVictory);
+		//if (winner == Team.Red)
+		//	HUDController.instance.SetMode(HUDMode.redTeamVictory);
+		//else
+		//	HUDController.instance.SetMode(HUDMode.blueTeamVictory);
+		StartCoroutine(ShowResultScreen(3, winner));
 	}
 
 	[Command]

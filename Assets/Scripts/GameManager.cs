@@ -79,7 +79,7 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 2;
-			_maxPlayer = 2;
+			_maxPlayer = 1;
 			state = GameState.waiting;
 			timer = 0;
 		}
@@ -248,17 +248,21 @@ public class GameManager : NetworkBehaviour
 			if (o.GetComponent<NetworkIdentity>().netId == player.GetComponent<NetworkIdentity>().netId)
 			{
 				_teamLists[(int)teamPlayer].Remove(o);
-				_playersLists.Remove(o);
-				break;
+				//_playersLists.Remove(o);
 			}
 
 			if (teamWinner != Team.Black)
 			{
-				player.GetComponent<ServerCommunication>().RpcSetWinner(teamWinner);
+				o.GetComponent<ServerCommunication>().RpcSetWinner(teamWinner);
 			}
 		}
 
 		player.GetComponent<ServerCommunication>().RpcPlayerDie();
+
+		// player ghost mode
+		//player.GetComponent<PlayerController>().enabled = false;
+		//player.GetComponent<PlayerGhostController>().enabled = true;
+		//player.GetComponent<PlayerGhostController>().Ghostify();
 	}
 
 	// TODO recheck if list remove work well with game object

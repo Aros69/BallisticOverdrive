@@ -46,6 +46,9 @@ public class HUDController : MonoBehaviour
     [Header("EscapeMenu")]
     [SerializeField] private GameObject escapeMenu;
 
+	[Header("Death Screen")]
+	[SerializeField] private GameObject deathScreen;
+
     private HUDMode mode;
     private bool showMenu = false;
 
@@ -131,6 +134,7 @@ public class HUDController : MonoBehaviour
 
     public void UpdateLife(int life)
     {
+		Debug.Log("life: " + life);
         for (int i = 0; i < life; i++)
         {
             healthBars[i].SetActive(true);
@@ -257,7 +261,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModePlaying()
     {
@@ -267,7 +272,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModeSpectating()
     {
@@ -277,7 +283,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(true);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModeConnecting()
     {
@@ -287,7 +294,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModeWaitingForPlayer()
     {
@@ -297,7 +305,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModeBlueTeamVictory()
     {
@@ -307,7 +316,8 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(true);
         redTeamWinsText.SetActive(false);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
 
     private void ModeRedTeamVictory()
     {
@@ -317,5 +327,17 @@ public class HUDController : MonoBehaviour
         blueTeamWinsText.SetActive(false);
         redTeamWinsText.SetActive(true);
         spectatingText.SetActive(false);
-    }
+		deathScreen.SetActive(false);
+	}
+
+	private void ModePlayerDie()
+	{
+		gameHUD.SetActive(false);
+		connectingText.SetActive(false);
+		waitingForPlayerText.SetActive(false);
+		blueTeamWinsText.SetActive(false);
+		redTeamWinsText.SetActive(false);
+		spectatingText.SetActive(false);
+		deathScreen.SetActive(true);
+	}
 }
