@@ -29,6 +29,11 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcPlayerDie()
 	{
+		if (hasAuthority)
+		{
+			HUDController.instance.SetMode(HUDMode.playerDead);
+		}
+
 		// player ghost mode
 		//gameObject.GetComponent<PlayerController>().enabled = false;
 		//gameObject.GetComponent<PlayerGhostController>().enabled = true;
@@ -75,7 +80,7 @@ public class ServerCommunication : NetworkBehaviour
 		//	HUDController.instance.SetMode(HUDMode.redTeamVictory);
 		//else
 		//	HUDController.instance.SetMode(HUDMode.blueTeamVictory);
-		StartCoroutine(ShowResultScreen(3, winner));
+		//StartCoroutine(ShowResultScreen(3, winner));
 	}
 
 	[Command]

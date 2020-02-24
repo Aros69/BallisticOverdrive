@@ -13,7 +13,8 @@ public enum HUDMode
     connecting,
     waitingForPlayer,
     blueTeamVictory,
-    redTeamVictory
+    redTeamVictory,
+	playerDead
 }
 
 public class HUDController : MonoBehaviour
@@ -250,7 +251,11 @@ public class HUDController : MonoBehaviour
             case HUDMode.redTeamVictory:
                 ModeRedTeamVictory();
                 break;
-        }
+			case HUDMode.playerDead:
+				ModePlayerDie();
+				break;
+
+		}
     }
 
     private void ModeNone()
@@ -332,7 +337,8 @@ public class HUDController : MonoBehaviour
 
 	private void ModePlayerDie()
 	{
-		gameHUD.SetActive(false);
+		Debug.Log("set death mode");
+		gameHUD.SetActive(true);
 		connectingText.SetActive(false);
 		waitingForPlayerText.SetActive(false);
 		blueTeamWinsText.SetActive(false);
