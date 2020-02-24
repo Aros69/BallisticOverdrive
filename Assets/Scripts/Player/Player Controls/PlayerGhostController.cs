@@ -28,7 +28,7 @@ public class PlayerGhostController : NetworkBehaviour
     
     [Header("Player Movement properties")]
     [SerializeField]
-    private float m_speed = 5.0f;
+    private float m_speed = 1.0f;
     [SerializeField]
     private float m_lookSensitivity = 3.0f;
     [SerializeField]
@@ -40,7 +40,7 @@ public class PlayerGhostController : NetworkBehaviour
         // If the player is not local disable the rigidbody (To prevent gravity being applied two times)
         // if(!isLocalPlayer)
                 // BlockMovement();
-        Ghostify();
+        //Ghostify();
 	}
 	
     public void Ghostify()
