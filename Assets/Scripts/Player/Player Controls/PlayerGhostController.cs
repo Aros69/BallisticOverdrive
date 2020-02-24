@@ -29,7 +29,7 @@ public class PlayerGhostController : MonoBehaviour
     [SerializeField]
     private float m_speed = 1.0f;
     [SerializeField]
-    private float m_airdrag = 1.2f;
+    private float m_airdrag = 1.001f;
     [SerializeField]
     private float m_lookSensitivity = 3.0f;
     [SerializeField]
@@ -63,8 +63,8 @@ public class PlayerGhostController : MonoBehaviour
         m_MovY = Input.GetAxis("Vertical");
 
         //Get mouse Input
-        m_yRot = Input.GetAxisRaw("Mouse X");
-        m_xRot = Input.GetAxisRaw("Mouse Y");
+        m_yRot += Input.GetAxisRaw("Mouse X");
+        m_xRot += Input.GetAxisRaw("Mouse Y");
 
         //Compute player speed and velocity
         m_moveHorizontal = m_Camera.transform.right * m_MovX;
@@ -77,6 +77,7 @@ public class PlayerGhostController : MonoBehaviour
         //Compute camera rotation
         m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
         m_cameraRotation = new Vector3(m_xRot, -m_yRot, 0) * m_lookSensitivity;
+        // m_cameraRotation = new Vector3(m_xRot, -m_yRot, 0);
     }
 
     /// <summary>
@@ -94,10 +95,11 @@ public class PlayerGhostController : MonoBehaviour
     public void FixedUpdate()
     {
         ComputeMovements();
-
+        Debug.Log("Velocity : " + m_velocity);
         m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
-        m_Camera.transform.Rotate(-m_cameraRotation);
+        // m_Camera.transform.Rotate(-m_cameraRotation);
+        transform.eulerAngles = -m_cameraRotation;
         m_velocity *= 1.0f/m_airdrag;
-        // CorrectCameraRotation();
+        CorrectCameraRotation();
     }
 }

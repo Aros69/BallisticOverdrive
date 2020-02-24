@@ -12,8 +12,7 @@ public class PlayerInit : NetworkBehaviour
         {
             m_camera.SetActive(true);
             //Disable the objects storing the red/blue meshes because m_Mesh is used to compute the tilt from the movements)
-            foreach (Transform child in m_Mesh.transform)
-                child.gameObject.SetActive(false);
+            IsMeshEnabled(false);
         }
         else
         {
@@ -22,6 +21,11 @@ public class PlayerInit : NetworkBehaviour
         }
     }
 
+    void IsMeshEnabled(bool b)
+    {
+        foreach (Transform child in m_Mesh.transform)
+                child.gameObject.SetActive(b);
+    }
     void DisableControls()
     {
         m_camera.SetActive(false);
@@ -41,6 +45,8 @@ public class PlayerInit : NetworkBehaviour
         r.velocity = v;
         r.isKinematic = false;
         r.freezeRotation = false;
+        if(isLocalPlayer)
+            IsMeshEnabled(true);
     }
     [ClientRpc]
     void RpcDollify(Vector3 v)
