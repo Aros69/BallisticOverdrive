@@ -79,7 +79,7 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 4;
-			_maxPlayer = 4;
+			_maxPlayer = 2;
 			state = GameState.waiting;
 			timer = 0;
 		}
@@ -141,7 +141,6 @@ public class GameManager : NetworkBehaviour
 		player.GetComponent<ServerCommunication>().TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
 
 		if (_playersLists.Count == _maxPlayerTeam * ((int)Team.Nb - 1) || _playersLists.Count == _maxPlayer)
-			//if (_playersLists.Count == _maxPlayer)
 		{
 			if (state == GameState.waiting)
 			{
@@ -167,12 +166,8 @@ public class GameManager : NetworkBehaviour
 			if (spawn.SpawnType == SpawnType.attacker) spawns[(int)_attack_side].Add(spawn);
 			else spawns[(int)_defense_side].Add(spawn);
 		}
-		Debug.Log("spawn point team red " + spawns[(int)_attack_side].Count);
-		Debug.Log("spawn point team blue " + spawns[(int)_defense_side].Count);
 
 		GameObject[] srvPlayer = GameObject.FindGameObjectsWithTag("Player");
-		Debug.Log("serveur player " + srvPlayer.Length);
-		Debug.Log("attack team " + _teamLists[(int)_attack_side].Count);
 		// AttackTeam
 		for (int i = 0; i < _teamLists[(int)_attack_side].Count; i++)
 		{
@@ -192,8 +187,7 @@ public class GameManager : NetworkBehaviour
 				
 			}
 		}
-
-		Debug.Log("defense team " + _teamLists[(int)_defense_side].Count);
+		
 		// DefenseTeam
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
