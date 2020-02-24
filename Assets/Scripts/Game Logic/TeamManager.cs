@@ -81,7 +81,6 @@ public class TeamManager: NetworkBehaviour
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
-		
 	}
 
     void Start()

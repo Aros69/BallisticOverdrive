@@ -190,7 +190,6 @@ public class PlayerController : NetworkBehaviour
             Tilt();
             m_velocity += new Vector3(0, - m_bonusGravity - 9.8f, 0) * Time.fixedDeltaTime;
             m_rigidBody.velocity = m_velocity;
-            Debug.Log(m_velocity);
             m_rigidBody.MoveRotation(m_rigidBody.rotation * Quaternion.Euler(m_rotation));
 
             if(m_grounded)
