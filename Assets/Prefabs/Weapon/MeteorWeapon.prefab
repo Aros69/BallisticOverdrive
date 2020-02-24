@@ -88,6 +88,11 @@ PrefabInstance:
       propertyPath: m_shootSpawn
       value: 
       objectReference: {fileID: 6904788335140040314}
+    - target: {fileID: 7676032737692635863, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_reloadTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7920367758513244000, guid: d27cb2a24f1f2bd4993c72418e830b6e,
         type: 3}
       propertyPath: m_AssetId

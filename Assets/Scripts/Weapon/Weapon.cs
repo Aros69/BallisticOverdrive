@@ -6,6 +6,11 @@ using Mirror;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private GameObject m_player = null;
+    [SerializeField] private GameObject m_blueReloadEffect = null;
+    [SerializeField] private GameObject m_redReloadEffect = null;
+
+    private GameObject m_activeEffect = null;
+    private AudioSource m_audioSrc = null;
     private ShootCommand m_playerShootScript = null;
 
     [SerializeField] protected GameObject m_projectile = null;
@@ -25,10 +30,8 @@ public class Weapon : MonoBehaviour
         get => m_maxCapacity;
     }
     [SerializeField] protected float m_reloadTime = 1;
-    [SerializeField] protected float m_delay = 0.0f;
-    public float delay { get => m_delay; }
 
-    private float m_ammo = 3;
+    private float m_ammo = 0;
     public float ammo { get => m_ammo; }
 
     // return false if unable to shoot
@@ -45,17 +48,27 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
+    int GetAmmoUnit()
+    {
+        return (int)(m_ammo);
+    }
     public void UpdateAmmo()
     {
 
         if (m_ammo < m_maxCapacity)
         {
+            int a = GetAmmoUnit();
             m_ammo += Time.deltaTime/m_reloadTime;
+            // If another ammo unit was incremented play sound
+            if(GetAmmoUnit() != a )
+            {
+                m_audioSrc.Play();
+
+                // GameObject o = Instantiate(m_activeEffect, transform.position, transform.rotation);
+            }
         } else {
             m_ammo = m_maxCapacity;
         }
-
         if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
 			HUDController.instance.UpdateAmmo(m_ammo);
         }
@@ -64,17 +77,19 @@ public class Weapon : MonoBehaviour
     void Awake()
     {
         m_ammo = m_maxCapacity;
-        m_shootSpawn = transform.GetChild(1);
+        m_shootSpawn = transform.GetChild(0);
         m_playerShootScript = m_player.GetComponent<ShootCommand>();
+        m_audioSrc = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-		if (m_player.GetComponent<NetworkIdentity>().hasAuthority)
-		{
-			HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
-		}
-	}
+        m_ammo = m_maxCapacity;
+        if (m_player.GetComponent<NetworkIdentity>().hasAuthority){
+            HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
+            m_activeEffect = m_player.GetComponent<TeamManager>().getTeam() == Team.Blue ? m_blueReloadEffect : m_redReloadEffect;
+        }
+    }
 
 	// Update is called once per frame
 	void Update()

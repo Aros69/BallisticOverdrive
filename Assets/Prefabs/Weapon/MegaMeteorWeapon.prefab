@@ -73,5 +73,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7702995386373516699, guid: c3e9b3686a10c744c9f0c9d6652d72f4,
         type: 3}
+    - target: {fileID: 7676032737692635863, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_maxCapacity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676032737692635863, guid: d27cb2a24f1f2bd4993c72418e830b6e,
+        type: 3}
+      propertyPath: m_reloadTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d27cb2a24f1f2bd4993c72418e830b6e, type: 3}
