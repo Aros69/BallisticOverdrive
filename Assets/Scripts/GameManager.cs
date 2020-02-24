@@ -230,6 +230,19 @@ public class GameManager : NetworkBehaviour
 		_alivePlayers[(int)teamPlayer]--;
 		Debug.Log("player " + player.GetComponent<NetworkIdentity>().netId + " is dead");
 
+
+		Team teamWinner = Team.Black;
+		if (_alivePlayers[(int)teamPlayer] == 0)
+		{
+			state = GameState.result;
+			Team teamLoser = teamPlayer;
+			teamWinner = (Team)(((int)teamLoser + 1) % 2);
+			Debug.Log("winner team is " + teamWinner);
+			Debug.Log("loser team is " + teamLoser);
+
+		}
+
+
 		foreach (GameObject o in _playersLists)
 		{
 			if (o.GetComponent<NetworkIdentity>().netId == player.GetComponent<NetworkIdentity>().netId)
@@ -238,21 +251,16 @@ public class GameManager : NetworkBehaviour
 				_playersLists.Remove(o);
 				break;
 			}
+
+			if (teamWinner != Team.Black)
+			{
+				player.GetComponent<ServerCommunication>().RpcSetWinner(teamWinner);
+			}
 		}
+
 		player.GetComponent<ServerCommunication>().RpcPlayerDie();
-
-		if (_alivePlayers[(int)teamPlayer] == 0)
-		{
-			state = GameState.result;
-			Team teamLoser = teamPlayer;
-			Team teamWinner = (Team)(((int)teamLoser + 1) % 2);
-			Debug.Log("winner team is " + teamWinner);
-			Debug.Log("loser team is " + teamLoser);
-
-			player.GetComponent<ServerCommunication>().RpcSetWinner(teamWinner);
-		}
 	}
-	
+
 	// TODO recheck if list remove work well with game object
 	[Server]
 	public void SrvPlayerLeave(GameObject player)
