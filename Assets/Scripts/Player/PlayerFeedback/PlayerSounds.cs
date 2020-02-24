@@ -6,6 +6,7 @@ public class PlayerSounds : MonoBehaviour
 {
     public AudioClip m_jump = null;
     public AudioClip m_ouch = null;
+    public AudioClip m_reload = null;
     private AudioSource m_audioSrc;
 
     void Start()
@@ -17,6 +18,10 @@ public class PlayerSounds : MonoBehaviour
         m_audioSrc.PlayOneShot(m_jump);
     }
     public void PlayOuchSound()
+    {
+        m_audioSrc.PlayOneShot(m_ouch);
+    }
+    public void PlayReloadSound()
     {
         m_audioSrc.PlayOneShot(m_ouch);
     }

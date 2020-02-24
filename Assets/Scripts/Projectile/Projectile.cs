@@ -82,7 +82,6 @@ public class Projectile : NetworkBehaviour
             || col.gameObject.GetComponent<NetworkIdentity>() == null) // Only collide with others
             {
 				//Debug.Log("Bullet collide something");
-
 				if (col.gameObject.layer == LayerMask.NameToLayer("Hitable"))
                     {
                         
@@ -98,10 +97,12 @@ public class Projectile : NetworkBehaviour
                 if (m_explosionPoint == null)
                 {
                     Explode(transform.position);
+                    CmdExplodeToOther(transform.position);
                 }
                 else
                 {
                     Explode(m_explosionPoint.position);
+                    CmdExplodeToOther(m_explosionPoint.position);
                 }
             }
         }
@@ -113,7 +114,22 @@ public class Projectile : NetworkBehaviour
             }
     }
 
-	[Command]
+    [Command]
+    public void CmdExplodeToOther(Vector3 explosionPosition)
+    {
+        Debug.Log("On lance la commande d'explosion pour les autres clients.");
+        Explode(explosionPosition);
+        RpcExplode(explosionPosition);
+    }
+
+    [ClientRpc]
+    public void RpcExplode(Vector3 explosionPosition)
+    {
+        Debug.Log("On fait exploser la bullet chez les autres clients.");
+        Explode(explosionPosition);
+    }
+
+    [Command]
 	private void CmdRequestAuthority(NetworkIdentity otherId)
 	{
 		Debug.Log("Request authority");

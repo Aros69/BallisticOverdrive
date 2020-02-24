@@ -43,6 +43,9 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject spectatingText;
     [SerializeField] private GameObject blackScreen;
 
+    [Header("Time")]
+    [SerializeField] private float maxTime;
+
     [Header("EscapeMenu")]
     [SerializeField] private GameObject escapeMenu;
 
@@ -85,12 +88,23 @@ public class HUDController : MonoBehaviour
         healthIcon.color = color;
     }
 
-    public void UpdateTimeLeft(int timeInSeconds)
-    {
-        int minutes = timeInSeconds / 60;
-        int seconds = timeInSeconds % 60;
+    public void StartTimer(){
+        Debug.Log("Coucou");
+        StartCoroutine(UpdateTimeLeft());
+    }
 
-        time.text = minutes + ":" + seconds;
+    public IEnumerator UpdateTimeLeft()
+    {
+        float startTime = Time.time;
+        Debug.Log(Time.time - startTime < maxTime);
+        while(Time.time - startTime < maxTime){
+            Debug.Log("Là");
+            int minutes = (int)(maxTime - Time.time + startTime) / 60;
+            int seconds = (int)(maxTime - Time.time + startTime) % 60;
+
+            time.text = minutes + ":" + seconds;
+            yield return null;
+        }
     }
 
     public void UpdateRounds(int roundCounter)
@@ -172,23 +186,26 @@ public class HUDController : MonoBehaviour
 
     public void UpdateAmmo(float ammo)
     {
-        int ammoCount = (int)ammo;
-        ammo = ammo - ammoCount;
-        for (int i = 0; i < ammoCount; i++)
+        if (mode != HUDMode.waitingForPlayer && mode != HUDMode.none)
         {
-            ammoBars[i].SetActive(true);
-            ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
-        }
+            int ammoCount = (int)ammo;
+            ammo = ammo - ammoCount;
+            for (int i = 0; i < ammoCount; i++)
+            {
+                ammoBars[i].SetActive(true);
+                ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
+            }
 
-        if(ammoCount < ammoBars.Length)
-        {
-            ammoBars[ammoCount].SetActive(true);
-            ((RectTransform)ammoBars[ammoCount].transform).sizeDelta = new Vector2(maxAmmoBarSize*ammo, 40);
-        }
+            if (ammoCount < ammoBars.Length)
+            {
+                ammoBars[ammoCount].SetActive(true);
+                ((RectTransform)ammoBars[ammoCount].transform).sizeDelta = new Vector2(maxAmmoBarSize * ammo, 40);
+            }
 
-        for (int i = ammoCount+1; i < ammoBars.Length; i++)
-        {
-			ammoBars[i].SetActive(false);
+            for (int i = ammoCount + 1; i < ammoBars.Length; i++)
+            {
+                ammoBars[i].SetActive(false);
+            }
         }
     }
 
