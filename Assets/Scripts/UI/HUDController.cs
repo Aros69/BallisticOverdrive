@@ -182,23 +182,26 @@ public class HUDController : MonoBehaviour
 
     public void UpdateAmmo(float ammo)
     {
-        int ammoCount = (int)ammo;
-        ammo = ammo - ammoCount;
-        for (int i = 0; i < ammoCount; i++)
+        if (mode != HUDMode.waitingForPlayer && mode != HUDMode.none)
         {
-            ammoBars[i].SetActive(true);
-            ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
-        }
+            int ammoCount = (int)ammo;
+            ammo = ammo - ammoCount;
+            for (int i = 0; i < ammoCount; i++)
+            {
+                ammoBars[i].SetActive(true);
+                ((RectTransform)ammoBars[i].transform).sizeDelta = new Vector2(maxAmmoBarSize, 40);
+            }
 
-        if(ammoCount < ammoBars.Length)
-        {
-            ammoBars[ammoCount].SetActive(true);
-            ((RectTransform)ammoBars[ammoCount].transform).sizeDelta = new Vector2(maxAmmoBarSize*ammo, 40);
-        }
+            if (ammoCount < ammoBars.Length)
+            {
+                ammoBars[ammoCount].SetActive(true);
+                ((RectTransform)ammoBars[ammoCount].transform).sizeDelta = new Vector2(maxAmmoBarSize * ammo, 40);
+            }
 
-        for (int i = ammoCount+1; i < ammoBars.Length; i++)
-        {
-			ammoBars[i].SetActive(false);
+            for (int i = ammoCount + 1; i < ammoBars.Length; i++)
+            {
+                ammoBars[i].SetActive(false);
+            }
         }
     }
 
