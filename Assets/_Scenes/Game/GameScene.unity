@@ -629,6 +629,7 @@ MonoBehaviour:
   blackScreen: {fileID: 1273372077}
   maxTime: 300
   escapeMenu: {fileID: 1159666676}
+  deathScreen: {fileID: 1053650035}
 --- !u!1 &362961637
 GameObject:
   m_ObjectHideFlags: 0
