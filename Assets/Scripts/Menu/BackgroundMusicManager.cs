@@ -14,9 +14,15 @@ public class BackgroundMusicManager : MonoBehaviour
 
     void Awake()
     {
-        sceneName = SceneManager.GetActiveScene().name;
-        m_audioSource = GetComponent<AudioSource>();
-        DontDestroyOnLoad(gameObject);
+        if (!Application.isBatchMode)
+        {
+            sceneName = SceneManager.GetActiveScene().name;
+            m_audioSource = GetComponent<AudioSource>();
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            GetComponent<AudioSource>().mute = true;
+        }
     }
 
     private void useGameMusic()
@@ -38,16 +44,19 @@ public class BackgroundMusicManager : MonoBehaviour
 
     public void Update()
     {
-        if(sceneName.Contains("Game") != SceneManager.GetActiveScene().name.Contains("Game"))
+        if (!Application.isBatchMode)
         {
-            sceneName = SceneManager.GetActiveScene().name;
-            if (sceneName.Contains("Game"))
+            if (sceneName.Contains("Game") != SceneManager.GetActiveScene().name.Contains("Game"))
             {
-                useGameMusic();
-            }
-            else
-            {
-                useMenuMusic();
+                sceneName = SceneManager.GetActiveScene().name;
+                if (sceneName.Contains("Game"))
+                {
+                    useGameMusic();
+                }
+                else
+                {
+                    useMenuMusic();
+                }
             }
         }
     }

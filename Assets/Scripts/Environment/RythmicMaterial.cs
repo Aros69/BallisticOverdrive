@@ -19,54 +19,60 @@ public class RythmicMaterial : MonoBehaviour
     // public float maxFrequency, minFrequency = 0;
     void Start()
     {
-        if (m_frequencyBand > 7)
-            throw new Exception("Frequency band index is superior to 7. There are only 8 frequency bands [0-7]");
-        // Look for the audio Spectrum
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioSpectrum");
-        if (objs.Length == 0)
-            throw new Exception("No AudioSpectrum object found, are you sure it's correctly tagged with \"AudioSpectrum\" ?");
-        m_audioSpectrum = objs[0].GetComponent<AudioSpectrum>();
-        m_materials = new List<Material>(GetComponent<Renderer>().materials);
+        if (!Application.isBatchMode)
+        {
+            if (m_frequencyBand > 7)
+                throw new Exception("Frequency band index is superior to 7. There are only 8 frequency bands [0-7]");
+            // Look for the audio Spectrum
+            GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioSpectrum");
+            if (objs.Length == 0)
+                throw new Exception("No AudioSpectrum object found, are you sure it's correctly tagged with \"AudioSpectrum\" ?");
+            m_audioSpectrum = objs[0].GetComponent<AudioSpectrum>();
+            m_materials = new List<Material>(GetComponent<Renderer>().materials);
+        }
     }
 
     void Update()
     {
-        float f = m_audioSpectrum.GetBandWidthValue(m_frequencyBand) * m_scaleFrequencyBand;
-        switch (m_parameter)
+        if (!Application.isBatchMode)
         {
-            case Parameter.EmissionIntensity:
-                SetFloatForMaterials("Vector1_C7CE0749", f);
-                break;
-            case Parameter.Red:
-                SetColorForMaterials("Color_8C5B6BEE", new Color(f, 1.0f, 1.0f, 1.0f));
-                break;
-            case Parameter.Blue:
-                SetColorForMaterials("Color_8C5B6BEE", new Color(1.0f, f, 1.0f, 1.0f));
-                break;
-            case Parameter.Green:
-                SetColorForMaterials("Color_8C5B6BEE", new Color(1.0f, 1.0f, f, 1.0f));
-                break;
-            case Parameter.RedEmission:
-                SetColorForMaterials("Color_45AD81E0", new Color(f, 1.0f, 1.0f, 1.0f));
-                break;
-            case Parameter.BlueEmission:
-                SetColorForMaterials("Color_45AD81E0", new Color(1.0f, f, 1.0f, 1.0f));
-                break;
-            case Parameter.GreenEmission:
-                SetColorForMaterials("Color_45AD81E0", new Color(1.0f, 1.0f, f, 1.0f));
-                break;
-            case Parameter.TilingX:
-                SetVector2DForMaterials("Vector2_5AB9E672", new Vector2(f, 1));
-                break;
-            case Parameter.TilingY:
-                SetVector2DForMaterials("Vector2_5AB9E672", new Vector2(1, f));
-                break;
-            case Parameter.OffsetX:
-                SetVector2DForMaterials("Vector2_B6029552", new Vector2(f, 1));
-                break;
-            case Parameter.OffsetY:
-                SetVector2DForMaterials("Vector2_B6029552", new Vector2(1, f));
-                break;
+            float f = m_audioSpectrum.GetBandWidthValue(m_frequencyBand) * m_scaleFrequencyBand;
+            switch (m_parameter)
+            {
+                case Parameter.EmissionIntensity:
+                    SetFloatForMaterials("Vector1_C7CE0749", f);
+                    break;
+                case Parameter.Red:
+                    SetColorForMaterials("Color_8C5B6BEE", new Color(f, 1.0f, 1.0f, 1.0f));
+                    break;
+                case Parameter.Blue:
+                    SetColorForMaterials("Color_8C5B6BEE", new Color(1.0f, f, 1.0f, 1.0f));
+                    break;
+                case Parameter.Green:
+                    SetColorForMaterials("Color_8C5B6BEE", new Color(1.0f, 1.0f, f, 1.0f));
+                    break;
+                case Parameter.RedEmission:
+                    SetColorForMaterials("Color_45AD81E0", new Color(f, 1.0f, 1.0f, 1.0f));
+                    break;
+                case Parameter.BlueEmission:
+                    SetColorForMaterials("Color_45AD81E0", new Color(1.0f, f, 1.0f, 1.0f));
+                    break;
+                case Parameter.GreenEmission:
+                    SetColorForMaterials("Color_45AD81E0", new Color(1.0f, 1.0f, f, 1.0f));
+                    break;
+                case Parameter.TilingX:
+                    SetVector2DForMaterials("Vector2_5AB9E672", new Vector2(f, 1));
+                    break;
+                case Parameter.TilingY:
+                    SetVector2DForMaterials("Vector2_5AB9E672", new Vector2(1, f));
+                    break;
+                case Parameter.OffsetX:
+                    SetVector2DForMaterials("Vector2_B6029552", new Vector2(f, 1));
+                    break;
+                case Parameter.OffsetY:
+                    SetVector2DForMaterials("Vector2_B6029552", new Vector2(1, f));
+                    break;
+            }
         }
     }
 

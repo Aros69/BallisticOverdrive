@@ -7,23 +7,16 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private CanvasGroup[] m_elements;
+    [SerializeField] private GameObject[] m_elements;
     [SerializeField] private string m_mainMenuScene;
 
     [Header("Fade parameters")]
-    [SerializeField] private float m_fadeTime = 0.5f;
-    [SerializeField] private float m_pauseTime = 1.0f;
-
-    private int m_currentElement = 0;
+    [SerializeField] private float m_timeToWaitBetweenLogos = 5.0f;
+    [SerializeField] private float m_timeToWaitForSceneChange = 2.0f;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        foreach(CanvasGroup cg in m_elements){
-            cg.alpha = 0.0f;
-        }
-
-        StartCoroutine(FadeInElement());
+    void Start(){
+        StartCoroutine(ActivateSequence());
     }
 
     void Update(){
@@ -31,24 +24,13 @@ public class StartSceneManager : MonoBehaviour
             SceneManager.LoadScene(m_mainMenuScene);
     }
 
-    private IEnumerator FadeInElement(){
-        while(m_elements[m_currentElement].alpha < 1.0f){
-            m_elements[m_currentElement].alpha += Time.deltaTime * m_fadeTime;
-            yield return null;
+    private IEnumerator ActivateSequence(){
+        for(int i = 0; i < m_elements.Length; i++){
+            m_elements[i].SetActive(true);
+            yield return new WaitForSeconds(m_timeToWaitBetweenLogos);
         }
-        m_elements[m_currentElement].alpha = 1.0f;
-        StartCoroutine(FadeOutElement());
-    }
 
-    private IEnumerator FadeOutElement(){
-        while(m_elements[m_currentElement].alpha > 0.0f){
-            m_elements[m_currentElement].alpha -= Time.deltaTime * m_fadeTime;
-            yield return null;
-        }
-        if(++m_currentElement >= m_elements.Length){
-            SceneManager.LoadScene(m_mainMenuScene);
-        } else {
-            StartCoroutine(FadeInElement());
-        }
+        yield return new WaitForSeconds(m_timeToWaitForSceneChange);
+        SceneManager.LoadScene(m_mainMenuScene);
     }
 }

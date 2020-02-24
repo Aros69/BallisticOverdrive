@@ -6,13 +6,22 @@ public class Projectile : NetworkBehaviour
 {
     private Rigidbody m_rigidBody;
     private GameObject m_owner;
-    
+
     [SerializeField] private float m_speed = 20.0f;
 
-    [SerializeField] GameObject m_explosion = null;
+    [SerializeField] GameObject m_explosionRed = null;
+    [SerializeField] GameObject m_explosionBlue = null;
+    [SerializeField] Transform m_explosionPoint = null;
+    /*private Team m_team;
+    public Team team {
+        get => m_team;
+        set { m_team = value; }
+    }*/
+
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
+        //m_team = GetComponent<TeamManager>().getTeam();
     }
 
     public Vector3 getDirection()
@@ -35,12 +44,12 @@ public class Projectile : NetworkBehaviour
 
 	public void SetOwner(NetworkIdentity conn)
     {
-		Debug.Log("set owner");
+		//Debug.Log("set owner");
 		if (ClientScene.localPlayer.GetComponent<NetworkIdentity>().netId == conn.netId 
 			&& m_owner.GetComponent<NetworkIdentity>().hasAuthority // implicite
 			&& !hasAuthority)
 		{
-			Debug.Log("no authority ask for");
+			//Debug.Log("no authority ask for");
 			CmdRequestAuthority(GetComponent<NetworkIdentity>());
 		}
 
@@ -48,7 +57,14 @@ public class Projectile : NetworkBehaviour
     
     void Explode(Vector3 explosionPoint)
     {
-        Instantiate(m_explosion, explosionPoint, transform.rotation);
+        //Debug.Log(GetComponent<TeamManager>().getTeam());
+        if (GetComponent<TeamManager>().getTeam() == Team.Red)
+        {
+            Instantiate(m_explosionRed, explosionPoint, transform.rotation);
+        } else
+        {
+            Instantiate(m_explosionBlue, explosionPoint, transform.rotation);
+        }
 		if (gameObject.transform.parent != null)
 
 			Destroy(gameObject.transform.parent);
@@ -79,10 +95,22 @@ public class Projectile : NetworkBehaviour
 						}
 
 					}
-                Explode(transform.position);
+                if (m_explosionPoint == null)
+                {
+                    Explode(transform.position);
+                }
+                else
+                {
+                    Explode(m_explosionPoint.position);
+                }
             }
-            
         }
+
+        if ((col.gameObject.GetComponent<NetworkIdentity>() != null && !col.gameObject.GetComponent<NetworkIdentity>().hasAuthority)
+            || col.gameObject.GetComponent<NetworkIdentity>() == null) // Only collide with others
+        {
+        
+            }
     }
 
 	[Command]

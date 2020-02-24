@@ -68,7 +68,14 @@ public class ShootCommand : NetworkBehaviour
 		{
 			bullet = Instantiate(m_weapon.projectile, pos, rot);
 		}
-		bullet.GetComponent<TeamManager>().setTeam(GetComponent<TeamManager>().getTeam());
-		NetworkServer.Spawn(bullet, base.connectionToClient);
+        bullet.GetComponent<TeamManager>().setTeam(GetComponent<TeamManager>().getTeam());
+        NetworkServer.Spawn(bullet, base.connectionToClient);
+        RpcSetTeamBullet(bullet, GetComponent<TeamManager>().getTeam());
 	}
+
+    [ClientRpc]
+    public void RpcSetTeamBullet(GameObject bullet, Team t)
+    {
+        bullet.GetComponent<TeamManager>().setTeam(t);
+    }
 }
