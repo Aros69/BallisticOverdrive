@@ -95,7 +95,6 @@ public class PlayerGhostController : MonoBehaviour
     public void FixedUpdate()
     {
         ComputeMovements();
-        Debug.Log("Velocity : " + m_velocity);
         m_rigidBody.MovePosition(m_rigidBody.position + m_velocity);
         // m_Camera.transform.Rotate(-m_cameraRotation);
         transform.eulerAngles = -m_cameraRotation;

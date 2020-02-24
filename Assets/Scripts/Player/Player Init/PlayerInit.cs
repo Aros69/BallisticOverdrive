@@ -59,10 +59,4 @@ public class PlayerInit : NetworkBehaviour
     {
         RpcDollify(GetComponent<Rigidbody>().velocity);
     }
-    //TODO REMOVE
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N) && isLocalPlayer)
-            CmdDollify();
-    }
 }
