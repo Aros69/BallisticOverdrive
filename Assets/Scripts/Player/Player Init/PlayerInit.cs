@@ -17,21 +17,27 @@ public class PlayerInit : NetworkBehaviour
         }
         else
         {
-            disableControls();
+            DisableControls();
             GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
-    void disableControls()
+    void DisableControls()
     {
         m_camera.SetActive(false);
         GetComponent<PlayerController>().enabled = false;
     }
 
+    void CutNetworkTransform()
+    {
+        GetComponent<NetworkTransform>().enabled = false;
+    }
+
     [ClientRpc]
     void RpcDollify()
     {
-        disableControls();
+        DisableControls();
+        CutNetworkTransform();
         Rigidbody r = GetComponent<Rigidbody>();
         r.isKinematic = false;
         r.freezeRotation = false;
