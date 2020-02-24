@@ -8,7 +8,6 @@ public class BackgroundMusicManager : MonoBehaviour
     [SerializeField] private AudioClip m_menuMusic;
     [SerializeField] private AudioClip m_gameMusic;
     private AudioSource m_audioSource;
-    private bool isInMenu = true;
     private string sceneName;
 
 
