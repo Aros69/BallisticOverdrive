@@ -79,7 +79,7 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 4;
-			_maxPlayer = 3;
+			_maxPlayer = 4;
 			state = GameState.waiting;
 			timer = 0;
 		}
@@ -140,8 +140,8 @@ public class GameManager : NetworkBehaviour
 
 		player.GetComponent<ServerCommunication>().TargetWaitingPlayer(player.GetComponent<NetworkIdentity>().connectionToClient, player);
 
-		//if (_playersLists.Count == _maxPlayerTeam * ((int)Team.Nb - 1) || _playersLists.Count == _maxPlayer)
-		if (_playersLists.Count == _maxPlayer)
+		if (_playersLists.Count == _maxPlayerTeam * ((int)Team.Nb - 1) || _playersLists.Count == _maxPlayer)
+			//if (_playersLists.Count == _maxPlayer)
 		{
 			if (state == GameState.waiting)
 			{
@@ -198,7 +198,7 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < _teamLists[(int)_defense_side].Count; i++)
 		{
 			Vector3 spawnPos = spawns[(int)_defense_side][i].transform.position;
-			Quaternion rot = spawns[(int)_attack_side][i].transform.rotation;
+			Quaternion rot = spawns[(int)_defense_side][i].transform.rotation;
 			_teamLists[(int)_defense_side][i].GetComponent<ServerCommunication>().RpcGameStart(spawnPos, _defense_side, _DefensePlayer, rot);
 
 			// Update player in server side
