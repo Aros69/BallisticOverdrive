@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
     }
     [SerializeField] protected float m_reloadTime = 1;
 
-    private float m_ammo = 3;
+    private float m_ammo = 0;
     public float ammo { get => m_ammo; }
 
     //Automatic m_reloading
@@ -72,7 +72,6 @@ public class Weapon : MonoBehaviour
         } else {
             m_ammo = m_maxCapacity;
         }
-
         if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
 			HUDController.instance.UpdateAmmo(m_ammo);
         }
@@ -88,7 +87,8 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        if(m_player.GetComponent<NetworkIdentity>().hasAuthority){
+        m_ammo = m_maxCapacity;
+        if (m_player.GetComponent<NetworkIdentity>().hasAuthority){
             HUDController.instance.SetMaxAmmo((int)m_maxCapacity);
             m_activeEffect = m_player.GetComponent<TeamManager>().getTeam() == Team.Blue ? m_blueReloadEffect : m_redReloadEffect;
         }
