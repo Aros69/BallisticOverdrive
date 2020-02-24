@@ -31,9 +31,6 @@ public class Weapon : MonoBehaviour
     private float m_ammo = 3;
     public float ammo { get => m_ammo; }
 
-    //Automatic m_reloading
-    private float m_startedReload = 0;
-
     // return false if unable to shoot
     public bool Shoot()
     {

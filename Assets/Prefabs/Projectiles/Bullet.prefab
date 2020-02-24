@@ -19581,7 +19581,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   m_speed: 20
-  m_explosion: {fileID: 7007910551062302497, guid: 5fdb3235bde17e24e84dabb716774b48,
+  m_explosionRed: {fileID: 7733955201154595032, guid: 995cc41aee5028b49be9ffb2fb8c5fed,
+    type: 3}
+  m_explosionBlue: {fileID: 7007910551062302497, guid: 5fdb3235bde17e24e84dabb716774b48,
     type: 3}
   m_explosionPoint: {fileID: 4208125595455222725}
 --- !u!114 &4135629060509680131

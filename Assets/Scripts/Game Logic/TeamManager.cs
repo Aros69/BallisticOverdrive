@@ -7,11 +7,10 @@ public enum Team {Red, Blue, Black, Nb};
 // Network behaviour because it need GameManager to be launch
 public class TeamManager: NetworkBehaviour
 {
-    [SerializeField] private GameObject m_redVisual;
-    [SerializeField] private GameObject m_blueVisual;
+    [SerializeField] private GameObject m_redVisual     = null;
+    [SerializeField] private GameObject m_blueVisual    = null;
 
 	[SerializeField]
-	//[SyncVar]
     private Team m_team;
     private bool m_isProjectile = false;
     static bool m_redTeamFull = false; 
@@ -51,6 +50,11 @@ public class TeamManager: NetworkBehaviour
             }
 			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.blue);
         }
+
+        /*if(GetComponent<Projectile>() != null)
+        {
+            GetComponent<Projectile>().team = t;
+        }*/
     }
 
     /// <Summary>
@@ -71,13 +75,13 @@ public class TeamManager: NetworkBehaviour
     {
         if(!m_redTeamFull)
         {
-            m_team = Team.Red;
+            setTeam(Team.Blue);
             m_redTeamFull = true;
             GetComponent<HealthManager>().setMaxHP(GameSettings.redTeamHealth);
         }
         else
         {
-            m_team = Team.Blue;
+            setTeam(Team.Red);
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
@@ -86,6 +90,9 @@ public class TeamManager: NetworkBehaviour
 
     void Start()
     {
-        m_team = Team.Black;
+        if (m_team == null)
+        {
+            m_team = Team.Black;
+        }
     }
 }
