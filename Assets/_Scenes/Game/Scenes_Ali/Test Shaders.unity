@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 175495718}
   m_speed: 1
+  m_airdrag: 1.2
   m_lookSensitivity: 3
   m_viewRange: 60
 --- !u!54 &175495723
