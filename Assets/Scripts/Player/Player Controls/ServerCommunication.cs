@@ -77,11 +77,7 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcSetWinner(Team winner)
 	{
-		//if (winner == Team.Red)
-		//	HUDController.instance.SetMode(HUDMode.redTeamVictory);
-		//else
-		//	HUDController.instance.SetMode(HUDMode.blueTeamVictory);
-		//StartCoroutine(ShowResultScreen(3, winner));
+		StartCoroutine(ShowResultScreen(2.5f, winner));
 	}
 
 	[Command]
