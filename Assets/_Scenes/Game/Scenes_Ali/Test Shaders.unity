@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175495716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.26, z: -17.92}
+  m_LocalPosition: {x: 0, y: 0.09, z: -6.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118176472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42498052, y: 1.9894432, z: -14.78566}
+  m_LocalPosition: {x: 0, y: -0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -657,6 +657,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedLoad
       objectReference: {fileID: 0}
+    - target: {fileID: 6544239547214415173, guid: fae01b81d2432bb408e318f47dcf2fc8,
+        type: 3}
+      propertyPath: sceneId
+      value: 2265597336
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae01b81d2432bb408e318f47dcf2fc8, type: 3}
 --- !u!1001 &4194766588113649023
@@ -725,6 +730,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BlueLoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101215392003432181, guid: 5a910b173076de945b7690b481c0c544,
+        type: 3}
+      propertyPath: sceneId
+      value: 3935873384
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a910b173076de945b7690b481c0c544, type: 3}

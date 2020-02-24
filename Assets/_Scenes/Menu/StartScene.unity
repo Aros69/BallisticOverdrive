@@ -5296,6 +5296,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMusic
       objectReference: {fileID: 0}
+    - target: {fileID: 1503484875848015820, guid: e542a9f12b2838d449ecd771a8021d5a,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3021121158756471114, guid: 1ed3df23a5593614b868e00abfdb8a5f,
+        type: 2}
     - target: {fileID: 1503484875848015823, guid: e542a9f12b2838d449ecd771a8021d5a,
         type: 3}
       propertyPath: m_LocalPosition.x
