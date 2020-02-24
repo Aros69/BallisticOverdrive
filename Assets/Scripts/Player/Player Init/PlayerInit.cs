@@ -30,6 +30,7 @@ public class PlayerInit : NetworkBehaviour
     {
         m_camera.SetActive(false);
         GetComponent<PlayerController>().enabled = false;
+        GetComponent<ShootCommand>().enabled = false;
     }
 
     void CutNetworkTransform()
