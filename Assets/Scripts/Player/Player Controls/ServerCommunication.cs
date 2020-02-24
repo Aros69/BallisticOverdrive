@@ -38,7 +38,8 @@ public class ServerCommunication : NetworkBehaviour
 		// player ghost mode
 		gameObject.GetComponent<PlayerController>().enabled = false;
 		gameObject.GetComponent<PlayerInit>().CmdDollify();
-		Instantiate(ghostPrefab, transform.position, transform.rotation);
+		if(isLocalPlayer)
+			Instantiate(ghostPrefab, transform.position, transform.rotation);
 	}
 
 	[Command]
