@@ -7,11 +7,10 @@ public enum Team {Red, Blue, Black, Nb};
 // Network behaviour because it need GameManager to be launch
 public class TeamManager: NetworkBehaviour
 {
-    [SerializeField] private GameObject m_redVisual;
-    [SerializeField] private GameObject m_blueVisual;
+    [SerializeField] private GameObject m_redVisual     = null;
+    [SerializeField] private GameObject m_blueVisual    = null;
 
 	[SerializeField]
-	//[SyncVar]
     private Team m_team;
     private bool m_isProjectile = false;
     static bool m_redTeamFull = false; 
@@ -86,7 +85,6 @@ public class TeamManager: NetworkBehaviour
             GetComponent<HealthManager>().setMaxHP(GameSettings.blueTeamHealth);
         }
         GetComponent<AmmoManager>().init();
-		
 	}
 
     void Start()

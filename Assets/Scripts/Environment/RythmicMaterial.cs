@@ -11,7 +11,6 @@ public class RythmicMaterial : MonoBehaviour
     [SerializeField] private float m_scaleFrequencyBand = 5.0f;
 
     private AudioSpectrum m_audioSpectrum = null;
-    private Renderer m_renderer = null;
     private List<Material> m_materials = null;
     // private List<float> m_baseParameters = null; // Base parameters found on the material
 

@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 286296873}
   - component: {fileID: 286296872}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4734,6 +4734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741019269}
   - component: {fileID: 1741019270}
+  - component: {fileID: 1741019271}
   m_Layer: 5
   m_Name: MainMenuScreen
   m_TagString: Untagged
@@ -4779,6 +4780,25 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &1741019271
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741019268}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3061d08187796ce4e8c06795d8867331, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1835084332
 GameObject:
   m_ObjectHideFlags: 0

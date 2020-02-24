@@ -58,13 +58,14 @@ public class ServerCommunication : NetworkBehaviour
 	[ClientRpc]
 	public void RpcGameStart(Vector3 spawnPosition, Team teamColor, PlayerProfile profile)
 	{
+
 		if (hasAuthority)
 		{
 			gameObject.GetComponent<PlayerController>().Teleport(spawnPosition);
 
 			// permet executer 1 fois
 			HUDController.instance.SetMode(HUDMode.playing);
-
+			HUDController.instance.StartTimer();
 		}
 		gameObject.GetComponent<HealthManager>().setMaxHP(profile.MaxLife);
 		gameObject.GetComponent<WeaponManager>().SetWeapon(profile.weaponType);
