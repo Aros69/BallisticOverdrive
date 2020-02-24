@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class BackgroundMusicManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip m_menuMusic;
-    [SerializeField] private AudioClip m_gameMusic;
-    private AudioSource m_audioSource;
-    private string sceneName;
+    [SerializeField] private AudioClip m_menuMusic  = null;
+    [SerializeField] private AudioClip m_gameMusic  = null;
+    private AudioSource m_audioSource               = null;
+    private string sceneName                        = null;
 
 
     void Awake()

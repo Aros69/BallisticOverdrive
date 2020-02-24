@@ -231,6 +231,28 @@ public class HUDController : MonoBehaviour
         }
     }
 
+    public Color getBlueColor()
+    {
+        if (blueScore != null)
+        {
+            return blueScore.color;
+        } else
+        {
+            return Color.blue;
+        }
+    }
+
+    public Color getRedColor()
+    {
+        if (redScore != null)
+        {
+            return redScore.color;
+        } else
+        {
+            return Color.red;
+        }
+    }
+
     public void Quit(){
 		ClientScene.localPlayer.GetComponent<ServerCommunication>().CmdPlayerLeave();
 		Application.Quit();

@@ -42,13 +42,17 @@ public class TeamManager: NetworkBehaviour
                 m_blueVisual.SetActive(false);
                 m_redVisual.SetActive(true);
             }
-			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.red);
+            if (hasAuthority) HUDController.instance.SetPlayerColor(HUDController.instance.getRedColor());
         } else {
             if(m_redVisual != null && !isLocalPlayer){
                 m_redVisual.SetActive(false);
                 m_blueVisual.SetActive(true);
             }
-			if (hasAuthority) HUDController.instance.SetPlayerColor(Color.blue);
+            if (hasAuthority)
+            {
+                HUDController.instance.SetPlayerColor(HUDController.instance.getBlueColor());
+            }
+            
         }
 
         /*if(GetComponent<Projectile>() != null)
