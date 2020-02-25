@@ -11,9 +11,9 @@ public class TeamManager: NetworkBehaviour
     [SerializeField] private GameObject m_blueVisual    = null;
 
 	[SerializeField]
-    private Team m_team;
+    private Team m_team         = Team.Blue;
     private bool m_isProjectile = false;
-    static bool m_redTeamFull = false; 
+    static bool m_redTeamFull   = false; 
 
     /// <summary>
     /// Return the team of the Gameobject

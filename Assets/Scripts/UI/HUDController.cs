@@ -22,16 +22,16 @@ public class HUDController : MonoBehaviour
     public static HUDController instance;
 
     [Header("Game HUD")]
-    [SerializeField] private GameObject gameHUD;
-    [SerializeField] private TMP_Text time;
+    [SerializeField] private GameObject gameHUD                 = null;
+    [SerializeField] private TMP_Text time                      = null;
     [SerializeField] private TMP_Text rounds;
-    [SerializeField] private TMP_Text blueScore;
-    [SerializeField] private TMP_Text redScore;
+    [SerializeField] private TMP_Text blueScore                 = null;
+    [SerializeField] private TMP_Text redScore                  = null;
 
     [Header("Player Bars")]
     [SerializeField] private float barSpacing = 15f;
     [SerializeField] private Image raygunIcon;
-    [SerializeField] private Image bulletgunIcon;
+    [SerializeField] private Image bulletgunIcon                = null;
     [SerializeField] private Image healthIcon;
     [SerializeField] private RectTransform healthBarContainer;
     [SerializeField] private RectTransform ammoBarContainer;
