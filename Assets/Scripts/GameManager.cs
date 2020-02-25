@@ -79,7 +79,7 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 4;
-			_maxPlayer = 2;
+			_maxPlayer = 4;
 			state = GameState.waiting;
 			timer = 0;
 		}
