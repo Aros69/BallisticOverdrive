@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Menu/MainMenuScene.unity
     guid: 55c987a11c52b7e4996ea862fcfcf2f5
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/TestScenes/Game_Scene_Bao.unity
     guid: cb72056858cbc344d9ee3e238e67f2b0
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Maps/elite_ruin/elite_ruin.unity
     guid: ba0b6a58fc6d2e4409668adb3347f604
   - enabled: 1

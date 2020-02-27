@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.IO;
 
 public enum GameState
 {
@@ -79,7 +80,21 @@ public class GameManager : NetworkBehaviour
 				_teamLists[i] = new List<GameObject>();
 			}
 			_maxPlayerTeam = 4;
-			_maxPlayer = 4;
+
+            string path = "nbPlayer.txt";
+            
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                _maxPlayer = int.Parse(reader.ReadLine());
+                reader.Close();
+            }
+            else
+            {
+                _maxPlayer = 4;
+            }
+            Debug.Log(_maxPlayer);
+
 			state = GameState.waiting;
 			timer = 0;
 		}
